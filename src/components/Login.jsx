@@ -46,7 +46,14 @@ export default function Login() {
       navigate('/');
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') {
-        setError('Google sign-in failed. Please try again.');
+        console.error('Google sign-in error:', err.code, err.message);
+        setError(
+          err.code === 'auth/unauthorized-domain'
+            ? 'This domain is not authorized. Add it in Firebase Console > Authentication > Settings > Authorized domains.'
+            : err.code === 'auth/configuration-not-found'
+            ? 'Google sign-in is not enabled. Enable it in Firebase Console > Authentication > Sign-in method.'
+            : `Google sign-in failed: ${err.code || err.message}`
+        );
       }
     }
   };
