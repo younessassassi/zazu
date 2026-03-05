@@ -24,7 +24,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Hello',
         answer: 'bonjour',
-        hint: 'B_____r',
+        options: ['bonsoir', 'bonjour', 'merci', 'salut'],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -37,7 +38,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Goodbye',
         answer: 'au revoir',
-        hint: 'A_ r_____',
+        options: ['bonjour', 'bonne nuit', 'au revoir', 'à bientôt'],
+        correct: 2,
       },
       {
         type: 'multipleChoice',
@@ -88,7 +90,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Please',
         answer: "s'il vous plaît",
-        hint: "S'il v___ p____",
+        options: ['merci beaucoup', "s'il vous plaît", 'excusez-moi', 'de rien'],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -116,7 +119,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Thank you very much',
         answer: 'merci beaucoup',
-        hint: 'M____ b_______',
+        options: ["s'il vous plaît", 'de rien', 'merci beaucoup', 'excusez-moi'],
+        correct: 2,
       },
       {
         type: 'multipleChoice',
@@ -152,7 +156,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'My name is',
         answer: "je m'appelle",
-        hint: "Je m'a_____",
+        options: ['je suis', "je m'appelle", 'je parle', "j'habite"],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -186,7 +191,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'I am American',
         answer: 'je suis américain',
-        hint: 'Je s___ a________',
+        options: ['je suis français', 'je parle américain', 'je suis américain', "j'habite en Amérique"],
+        correct: 2,
       },
       {
         type: 'multipleChoice',
@@ -224,14 +230,16 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'The brother',
         answer: 'le frère',
-        hint: 'le f____',
+        options: ['le père', 'le frère', 'le fils', 'la sœur'],
+        correct: 1,
       },
       {
         type: 'translate',
         prompt: 'Translate to French:',
         sentence: 'The sister',
         answer: 'la sœur',
-        hint: 'la s___',
+        options: ['la mère', 'la fille', 'la sœur', 'la grand-mère'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -291,7 +299,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'She is beautiful',
         answer: 'elle est belle',
-        hint: 'Elle est b____',
+        options: ['elle est grande', 'elle est belle', 'elle est jeune', 'elle est petite'],
+        correct: 1,
       },
       {
         type: 'fillBlank',
@@ -319,7 +328,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'He is young',
         answer: 'il est jeune',
-        hint: 'Il est j____',
+        options: ['il est vieux', 'il est fort', 'il est grand', 'il est jeune'],
+        correct: 3,
       },
       {
         type: 'matching',
@@ -360,7 +370,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'The apple',
         answer: 'la pomme',
-        hint: 'La p____',
+        options: ['le pain', 'la pomme', 'le fromage', 'la salade'],
+        correct: 1,
       },
       {
         type: 'fillBlank',
@@ -388,7 +399,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'I am hungry',
         answer: "j'ai faim",
-        hint: "J'ai f___",
+        options: ["j'ai soif", 'je suis fatigué', "j'ai faim", 'je mange'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -427,7 +439,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'The tea',
         answer: 'le thé',
-        hint: 'Le t__',
+        options: ['le café', 'le jus', 'le thé', 'le lait'],
+        correct: 2,
       },
       {
         type: 'fillBlank',
@@ -455,7 +468,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'I am thirsty',
         answer: "j'ai soif",
-        hint: "J'ai s___",
+        options: ["j'ai faim", "j'ai soif", 'je bois', 'je veux'],
+        correct: 1,
       },
       {
         type: 'matching',
@@ -496,7 +510,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Where is the hotel?',
         answer: "où est l'hôtel",
-        hint: "Où est l'h____",
+        options: ["où est la gare", "où est l'hôtel", "où est l'aéroport", "où est le taxi"],
+        correct: 1,
       },
       {
         type: 'fillBlank',
@@ -556,7 +571,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'I would like',
         answer: 'je voudrais',
-        hint: 'Je v_______',
+        options: ['je veux', 'je voudrais', "j'ai besoin", 'je peux'],
+        correct: 1,
       },
       {
         type: 'fillBlank',
@@ -584,7 +600,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'A table for two, please',
         answer: "une table pour deux, s'il vous plaît",
-        hint: "Une t____ pour d___",
+        options: ["un menu, s'il vous plaît", "une table pour deux, s'il vous plaît", "l'addition, s'il vous plaît", "une réservation pour deux"],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -622,7 +639,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Three',
         answer: 'trois',
-        hint: 'T____',
+        options: ['deux', 'quatre', 'trois', 'cinq'],
+        correct: 2,
       },
       {
         type: 'multipleChoice',
@@ -656,7 +674,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Seven',
         answer: 'sept',
-        hint: 'S___',
+        options: ['six', 'huit', 'neuf', 'sept'],
+        correct: 3,
       },
       {
         type: 'matching',
@@ -689,7 +708,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Tuesday',
         answer: 'mardi',
-        hint: 'M____',
+        options: ['lundi', 'mardi', 'mercredi', 'jeudi'],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -723,7 +743,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Tomorrow',
         answer: 'demain',
-        hint: 'D_____',
+        options: ["aujourd'hui", 'hier', 'demain', 'maintenant'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -764,7 +785,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'To speak',
         answer: 'parler',
-        hint: 'P_____',
+        options: ['manger', 'parler', 'dormir', 'boire'],
+        correct: 1,
       },
       {
         type: 'fillBlank',
@@ -792,7 +814,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'I want',
         answer: 'je veux',
-        hint: 'Je v___',
+        options: ['je vais', 'je fais', 'je veux', 'je vois'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -852,7 +875,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'They have',
         answer: 'ils ont',
-        hint: 'Ils o__',
+        options: ['ils sont', 'ils ont', 'ils vont', 'ils font'],
+        correct: 1,
       },
       {
         type: 'matching',
@@ -899,7 +923,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'Green',
         answer: 'vert',
-        hint: 'V___',
+        options: ['rouge', 'bleu', 'vert', 'jaune'],
+        correct: 2,
       },
       {
         type: 'fillBlank',
@@ -927,7 +952,8 @@ const lessons = [
         prompt: 'Translate to French:',
         sentence: 'White',
         answer: 'blanc',
-        hint: 'B____',
+        options: ['noir', 'gris', 'rose', 'blanc'],
+        correct: 3,
       },
       {
         type: 'matching',
