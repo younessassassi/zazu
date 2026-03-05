@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getLessonById } from '../data/lessons';
 import { completeLesson } from '../data/progress';
+import { stopSpeech } from '../utils/speech';
 import MultipleChoice from './exercises/MultipleChoice';
 import Translate from './exercises/Translate';
 import FillBlank from './exercises/FillBlank';
@@ -16,7 +17,8 @@ export default function Lesson() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [hearts, setHearts] = useState(3);
+  const [combo, setCombo] = useState(0);
+  const [bestCombo, setBestCombo] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [finished, setFinished] = useState(false);
@@ -41,21 +43,27 @@ export default function Lesson() {
       setIsCorrect(correct);
       if (correct) {
         setScore((s) => s + 1);
+        setCombo((c) => {
+          const next = c + 1;
+          setBestCombo((best) => Math.max(best, next));
+          return next;
+        });
       } else {
-        setHearts((h) => h - 1);
+        setCombo(0);
       }
     },
     []
   );
 
   const handleContinue = () => {
-    if (currentIndex + 1 >= exercises.length || hearts <= 0) {
-      const res = completeLesson(lesson.id, score + (isCorrect ? 0 : 0), exercises.length, lesson.xpReward);
+    stopSpeech();
+    if (currentIndex + 1 >= exercises.length) {
+      const res = completeLesson(lesson.id, score + (isCorrect ? 0 : 0), exercises.length, lesson.xpReward, bestCombo);
       setResult({
         ...res,
         score: score,
         maxScore: exercises.length,
-        hearts,
+        bestCombo,
       });
       setFinished(true);
     } else {
@@ -116,7 +124,7 @@ export default function Lesson() {
     <div className="lesson-container">
       {/* Header Bar */}
       <div className="lesson-header">
-        <button className="lesson-close" onClick={() => navigate('/')}>
+        <button className="lesson-close" onClick={() => { stopSpeech(); navigate('/'); }}>
           ✕
         </button>
         <div className="lesson-progress-bar">
@@ -125,12 +133,13 @@ export default function Lesson() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="lesson-hearts">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <span key={i} className={`heart ${i < hearts ? 'active' : 'lost'}`}>
-              ❤️
-            </span>
-          ))}
+        {combo > 0 && (
+          <div className={`combo-badge ${combo >= 3 ? 'hot' : ''}`}>
+            🔥 {combo}x
+          </div>
+        )}
+        <div className="lesson-score">
+          {score}/{exercises.length}
         </div>
       </div>
 
@@ -144,21 +153,19 @@ export default function Lesson() {
             <div className="feedback-icon">{isCorrect ? '✅' : '❌'}</div>
             <div className="feedback-text">
               {isCorrect ? (
-                <span className="feedback-title">Correct!</span>
+                <span className="feedback-title">
+                  {combo >= 3 ? 'On fire!' : combo >= 2 ? 'Nice streak!' : 'Correct!'}
+                </span>
               ) : (
                 <>
-                  <span className="feedback-title">Incorrect</span>
-                  <span className="feedback-detail">Don&apos;t worry, keep practicing!</span>
+                  <span className="feedback-title">Not quite</span>
+                  <span className="feedback-detail">No worries — you'll get it next time!</span>
                 </>
               )}
             </div>
           </div>
           <button className="continue-btn" onClick={handleContinue}>
-            {hearts <= 0 && !isCorrect
-              ? 'End Lesson'
-              : currentIndex + 1 >= exercises.length
-              ? 'Finish'
-              : 'Continue'}
+            {currentIndex + 1 >= exercises.length ? 'Finish' : 'Continue'}
           </button>
         </div>
       )}

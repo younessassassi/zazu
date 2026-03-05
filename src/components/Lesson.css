@@ -15,7 +15,7 @@
   padding: 16px 0;
   position: sticky;
   top: 0;
-  background: #f7f7f7;
+  background: #f0f4ff;
   z-index: 10;
 }
 
@@ -36,8 +36,8 @@
 }
 
 .lesson-close:hover {
-  border-color: #ff4b4b;
-  color: #ff4b4b;
+  border-color: #ef4444;
+  color: #ef4444;
 }
 
 .lesson-progress-bar {
@@ -50,25 +50,47 @@
 
 .lesson-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #58cc02, #46a302);
+  background: linear-gradient(90deg, #4f46e5, #818cf8);
   border-radius: 10px;
   transition: width 0.4s ease;
 }
 
-.lesson-hearts {
-  display: flex;
-  gap: 2px;
+.lesson-score {
+  font-size: 15px;
+  font-weight: 800;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 4px 12px;
+  border-radius: 10px;
   flex-shrink: 0;
 }
 
-.heart {
-  font-size: 20px;
-  transition: all 0.3s;
+.combo-badge {
+  font-size: 14px;
+  font-weight: 800;
+  color: #f59e0b;
+  background: #fffbeb;
+  padding: 4px 10px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  animation: comboPop 0.3s ease;
 }
 
-.heart.lost {
-  filter: grayscale(100%);
-  opacity: 0.3;
+.combo-badge.hot {
+  color: #ef4444;
+  background: #fef2f2;
+  animation: comboPop 0.3s ease, comboGlow 1s ease infinite;
+}
+
+@keyframes comboPop {
+  0% { transform: scale(0.7); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes comboGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.3); }
 }
 
 /* Exercise Body */
@@ -95,13 +117,13 @@
 }
 
 .lesson-feedback.correct {
-  background: #d7ffb8;
-  border-top: 2px solid #58cc02;
+  background: #d1fae5;
+  border-top: 2px solid #10b981;
 }
 
 .lesson-feedback.incorrect {
-  background: #ffdfe0;
-  border-top: 2px solid #ff4b4b;
+  background: #fee2e2;
+  border-top: 2px solid #ef4444;
 }
 
 .feedback-content {
@@ -127,11 +149,11 @@
 }
 
 .correct .feedback-title {
-  color: #58a700;
+  color: #059669;
 }
 
 .incorrect .feedback-title {
-  color: #ea2b2b;
+  color: #dc2626;
 }
 
 .feedback-detail {
@@ -140,10 +162,10 @@
 }
 
 .continue-btn {
-  background: #58cc02;
+  background: #4f46e5;
   color: white;
   border: none;
-  border-bottom: 4px solid #46a302;
+  border-bottom: 4px solid #3730a3;
   padding: 12px 30px;
   border-radius: 16px;
   font-size: 16px;
@@ -156,8 +178,8 @@
 }
 
 .incorrect .continue-btn {
-  background: #ff4b4b;
-  border-bottom-color: #cc3c3c;
+  background: #ef4444;
+  border-bottom-color: #b91c1c;
 }
 
 .continue-btn:hover {

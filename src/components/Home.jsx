@@ -4,87 +4,125 @@ import { getUserProgress, isLessonUnlocked, getLessonProgress } from '../data/pr
 import lessons from '../data/lessons';
 import './Home.css';
 
+function ProgressRing({ percentage, size = 48, stroke = 4 }) {
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percentage / 100) * circumference;
+  return (
+    <svg width={size} height={size} className="progress-ring">
+      <circle
+        className="progress-ring-bg"
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        strokeWidth={stroke}
+      />
+      <circle
+        className="progress-ring-fill"
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        strokeWidth={stroke}
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+      />
+    </svg>
+  );
+}
+
 export default function Home() {
   const navigate = useNavigate();
   const units = getUnits();
   const progress = getUserProgress();
   const completedCount = Object.keys(progress.completedLessons).length;
+  const overallPercent = Math.round((completedCount / lessons.length) * 100);
 
   return (
     <div className="home">
       <div className="home-header">
-        <h1>Learn French</h1>
+        <h1>Bonjour! 🇫🇷</h1>
         <p className="home-subtitle">
           {completedCount === 0
-            ? 'Start your French learning journey!'
-            : `${completedCount} of ${lessons.length} lessons completed`}
+            ? 'Ready to start your French adventure?'
+            : `${overallPercent}% complete — ${completedCount} of ${lessons.length} lessons`}
         </p>
-        <div className="progress-bar-container">
-          <div
-            className="progress-bar-fill"
-            style={{ width: `${(completedCount / lessons.length) * 100}%` }}
-          />
-        </div>
+        {completedCount > 0 && (
+          <div className="overall-progress">
+            <div className="overall-bar">
+              <div
+                className="overall-fill"
+                style={{ width: `${overallPercent}%` }}
+              />
+            </div>
+            <span className="overall-label">{overallPercent}%</span>
+          </div>
+        )}
       </div>
 
-      <div className="units-container">
-        {units.map((unit) => (
-          <div key={unit.id} className="unit-section">
-            <div className="unit-header">
-              <div className="unit-badge">Unit {unit.id}</div>
-              <h2 className="unit-title">{unit.name}</h2>
-            </div>
+      <div className="chapters-container">
+        {units.map((unit) => {
+          const unitLessons = unit.lessons;
+          const completedInUnit = unitLessons.filter(
+            (l) => !!getLessonProgress(l.id)
+          ).length;
 
-            <div className="lessons-path">
-              {unit.lessons.map((lesson, index) => {
-                const unlocked = isLessonUnlocked(lesson.id, lessons);
-                const lessonProg = getLessonProgress(lesson.id);
-                const isCompleted = !!lessonProg;
+          return (
+            <div key={unit.id} className="chapter-section">
+              <div className="chapter-banner">
+                <span className="chapter-number">Chapter {unit.id}</span>
+                <span className="chapter-name">{unit.name}</span>
+                <span className="chapter-progress-tag">
+                  {completedInUnit}/{unitLessons.length}
+                </span>
+              </div>
 
-                return (
-                  <div
-                    key={lesson.id}
-                    className={`lesson-node ${
-                      isCompleted ? 'completed' : unlocked ? 'unlocked' : 'locked'
-                    }`}
-                    style={{ '--offset': index % 2 === 0 ? '0px' : '60px' }}
-                    onClick={() => {
-                      if (unlocked) navigate(`/lesson/${lesson.id}`);
-                    }}
-                  >
-                    <div className="lesson-circle">
-                      {isCompleted ? (
-                        <span className="lesson-check">✓</span>
-                      ) : unlocked ? (
-                        <span className="lesson-icon">{lesson.icon}</span>
-                      ) : (
-                        <span className="lesson-lock">🔒</span>
-                      )}
+              <div className="lesson-grid">
+                {unitLessons.map((lesson) => {
+                  const unlocked = isLessonUnlocked(lesson.id, lessons);
+                  const lessonProg = getLessonProgress(lesson.id);
+                  const isCompleted = !!lessonProg;
+                  const accuracy = isCompleted
+                    ? Math.round((lessonProg.bestScore / lessonProg.maxScore) * 100)
+                    : 0;
+
+                  return (
+                    <div
+                      key={lesson.id}
+                      className={`lesson-card ${
+                        isCompleted ? 'completed' : unlocked ? 'unlocked' : 'locked'
+                      }`}
+                      onClick={() => {
+                        if (unlocked) navigate(`/lesson/${lesson.id}`);
+                      }}
+                    >
+                      <div className="card-icon-wrap">
+                        {isCompleted ? (
+                          <>
+                            <ProgressRing percentage={accuracy} />
+                            <span className="card-icon-center">{lesson.icon}</span>
+                          </>
+                        ) : (
+                          <span className="card-icon-solo">
+                            {unlocked ? lesson.icon : '🔒'}
+                          </span>
+                        )}
+                      </div>
+                      <div className="card-info">
+                        <span className="card-title">{lesson.title}</span>
+                        {isCompleted && (
+                          <span className="card-grade">{lessonProg.grade}</span>
+                        )}
+                        {!isCompleted && unlocked && (
+                          <span className="card-tag">Start</span>
+                        )}
+                      </div>
                     </div>
-                    <div className="lesson-info">
-                      <span className="lesson-title">{lesson.title}</span>
-                      {isCompleted && (
-                        <div className="lesson-stars">
-                          {[1, 2, 3].map((s) => (
-                            <span
-                              key={s}
-                              className={`star ${s <= lessonProg.stars ? 'filled' : ''}`}
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    {index < unit.lessons.length - 1 && (
-                      <div className="lesson-connector" />
-                    )}
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

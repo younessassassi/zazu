@@ -1,4 +1,4 @@
-import { getUserProgress, resetProgress } from '../data/progress';
+import { getUserProgress, resetProgress, getGrade } from '../data/progress';
 import lessons from '../data/lessons';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,11 +9,13 @@ export default function Profile() {
   const [progress, setProgress] = useState(getUserProgress());
   const completedCount = Object.keys(progress.completedLessons).length;
   const totalLessons = lessons.length;
-  const totalStars = Object.values(progress.completedLessons).reduce(
-    (sum, l) => sum + l.stars,
-    0
-  );
-  const maxStars = totalLessons * 3;
+
+  // Calculate average grade
+  const completedEntries = Object.values(progress.completedLessons);
+  const avgAccuracy = completedEntries.length > 0
+    ? completedEntries.reduce((sum, l) => sum + (l.bestScore / l.maxScore), 0) / completedEntries.length
+    : 0;
+  const avgGrade = completedEntries.length > 0 ? getGrade(avgAccuracy) : '—';
 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
@@ -27,14 +29,14 @@ export default function Profile() {
       <div className="profile-header">
         <div className="profile-avatar">🧑‍🎓</div>
         <h1>Your Profile</h1>
-        <p className="profile-level">Level {progress.level} French Learner</p>
+        <p className="profile-level">Level {progress.level} — {completedCount > 0 ? `Average: ${avgGrade}` : 'Beginner'}</p>
       </div>
 
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-card-icon">⚡</div>
+          <div className="stat-card-icon">💎</div>
           <div className="stat-card-value">{progress.totalXP}</div>
-          <div className="stat-card-label">Total XP</div>
+          <div className="stat-card-label">Points</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-icon">🔥</div>
@@ -42,18 +44,18 @@ export default function Profile() {
           <div className="stat-card-label">Day Streak</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon">📚</div>
+          <div className="stat-card-icon">📖</div>
           <div className="stat-card-value">
             {completedCount}/{totalLessons}
           </div>
           <div className="stat-card-label">Lessons Done</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon">⭐</div>
+          <div className="stat-card-icon">🎯</div>
           <div className="stat-card-value">
-            {totalStars}/{maxStars}
+            {avgAccuracy > 0 ? `${Math.round(avgAccuracy * 100)}%` : '—'}
           </div>
-          <div className="stat-card-label">Stars Earned</div>
+          <div className="stat-card-label">Avg Accuracy</div>
         </div>
       </div>
 
@@ -72,6 +74,7 @@ export default function Profile() {
               .filter((l) => progress.completedLessons[l.id])
               .map((lesson) => {
                 const lp = progress.completedLessons[lesson.id];
+                const accuracy = Math.round((lp.bestScore / lp.maxScore) * 100);
                 return (
                   <div key={lesson.id} className="completed-item">
                     <span className="completed-icon">{lesson.icon}</span>
@@ -79,19 +82,8 @@ export default function Profile() {
                       <span className="completed-title">{lesson.title}</span>
                       <span className="completed-unit">{lesson.unitName}</span>
                     </div>
-                    <div className="completed-stars">
-                      {[1, 2, 3].map((s) => (
-                        <span
-                          key={s}
-                          className={`star ${s <= lp.stars ? 'filled' : ''}`}
-                        >
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                    <span className="completed-score">
-                      {lp.bestScore}/{lp.maxScore}
-                    </span>
+                    <span className="completed-grade">{lp.grade}</span>
+                    <span className="completed-accuracy">{accuracy}%</span>
                   </div>
                 );
               })}

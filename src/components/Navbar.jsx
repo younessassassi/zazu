@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getUserProgress } from '../data/progress';
+import lessons from '../data/lessons';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -11,26 +12,28 @@ export default function Navbar() {
     setProgress(getUserProgress());
   }, [location]);
 
+  const completedCount = Object.keys(progress.completedLessons).length;
+
   return (
     <nav className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand">
           <span className="brand-icon">🇫🇷</span>
-          <span className="brand-text">FrenchLearn</span>
+          <span className="brand-text">Parlez</span>
         </Link>
 
         <div className="navbar-stats">
-          <div className="stat-item" title="Total XP">
-            <span className="stat-icon">⚡</span>
-            <span className="stat-value">{progress.totalXP}</span>
+          <div className="stat-pill" title="Points">
+            <span className="pill-icon">💎</span>
+            <span className="pill-value">{progress.totalXP}</span>
           </div>
-          <div className="stat-item" title="Day Streak">
-            <span className="stat-icon">🔥</span>
-            <span className="stat-value">{progress.currentStreak}</span>
+          <div className="stat-pill" title="Day Streak">
+            <span className="pill-icon">🔥</span>
+            <span className="pill-value">{progress.currentStreak}</span>
           </div>
-          <div className="stat-item" title={`Level ${progress.level}`}>
-            <span className="stat-icon">👑</span>
-            <span className="stat-value">{progress.level}</span>
+          <div className="stat-pill" title="Lessons Completed">
+            <span className="pill-icon">📖</span>
+            <span className="pill-value">{completedCount}/{lessons.length}</span>
           </div>
         </div>
 

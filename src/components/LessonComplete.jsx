@@ -1,48 +1,85 @@
 import { useNavigate } from 'react-router-dom';
 import './LessonComplete.css';
 
+function AccuracyRing({ percentage }) {
+  const size = 120;
+  const stroke = 8;
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percentage / 100) * circumference;
+  return (
+    <div className="accuracy-ring-wrap">
+      <svg width={size} height={size} className="accuracy-ring">
+        <circle
+          className="accuracy-ring-bg"
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={stroke}
+        />
+        <circle
+          className="accuracy-ring-fill"
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={stroke}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+        />
+      </svg>
+      <span className="accuracy-ring-text">{percentage}%</span>
+    </div>
+  );
+}
+
 export default function LessonComplete({ lesson, result }) {
   const navigate = useNavigate();
-  const { stars, xpEarned, score, maxScore, hearts } = result;
+  const { grade, xpEarned, score, maxScore, bestCombo } = result;
+  const accuracy = Math.round((score / maxScore) * 100);
+
+  const gradeColor =
+    grade === 'A+' || grade === 'A'
+      ? '#10b981'
+      : grade === 'B'
+      ? '#4f46e5'
+      : grade === 'C'
+      ? '#f59e0b'
+      : '#ef4444';
 
   return (
     <div className="lesson-complete">
       <div className="complete-card">
         <div className="complete-icon">
-          {hearts > 0 ? '🎉' : '💪'}
+          {accuracy >= 70 ? '🎉' : '💪'}
         </div>
 
         <h1 className="complete-title">
-          {hearts > 0 ? 'Lesson Complete!' : 'Keep Practicing!'}
+          {accuracy >= 90 ? 'Excellent!' : accuracy >= 70 ? 'Well Done!' : 'Keep Going!'}
         </h1>
 
         <p className="complete-subtitle">{lesson.title}</p>
 
-        <div className="complete-stars">
-          {[1, 2, 3].map((s) => (
-            <span
-              key={s}
-              className={`complete-star ${s <= stars ? 'filled' : ''}`}
-              style={{ animationDelay: `${s * 0.2}s` }}
-            >
-              ★
-            </span>
-          ))}
+        <div className="grade-badge" style={{ background: gradeColor }}>
+          {grade}
         </div>
+
+        <AccuracyRing percentage={accuracy} />
 
         <div className="complete-stats">
           <div className="complete-stat">
-            <span className="stat-number">{score}</span>
-            <span className="stat-label">out of {maxScore} correct</span>
+            <span className="stat-number">{score}/{maxScore}</span>
+            <span className="stat-label">Correct</span>
           </div>
           <div className="complete-stat">
             <span className="stat-number">+{xpEarned}</span>
-            <span className="stat-label">XP earned</span>
+            <span className="stat-label">Points</span>
           </div>
-          <div className="complete-stat">
-            <span className="stat-number">{hearts}/3</span>
-            <span className="stat-label">hearts left</span>
-          </div>
+          {bestCombo > 1 && (
+            <div className="complete-stat">
+              <span className="stat-number">🔥 {bestCombo}x</span>
+              <span className="stat-label">Best Combo</span>
+            </div>
+          )}
         </div>
 
         <div className="complete-actions">
@@ -56,7 +93,7 @@ export default function LessonComplete({ lesson, result }) {
             className="complete-btn secondary"
             onClick={() => window.location.reload()}
           >
-            Practice Again
+            Try Again
           </button>
         </div>
       </div>

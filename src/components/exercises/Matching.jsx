@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './exercises.css';
+import { speakFrench } from '../../utils/speech';
 
 export default function Matching({ exercise, onAnswer, answered }) {
   const [frenchItems, setFrenchItems] = useState([]);
@@ -43,6 +44,9 @@ export default function Matching({ exercise, onAnswer, answered }) {
   const handleFrenchClick = (id) => {
     if (answered || matched.has(id)) return;
     setSelectedFrench(id);
+    // Speak the French word when selected
+    const item = frenchItems.find((i) => i.id === id);
+    if (item) speakFrench(item.text);
   };
 
   const handleEnglishClick = (id) => {

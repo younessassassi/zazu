@@ -26,18 +26,27 @@ export function getUserProgress() {
   return getProgress();
 }
 
-export function completeLesson(lessonId, score, maxScore, xpReward) {
+export function getGrade(percentage) {
+  if (percentage >= 0.95) return 'A+';
+  if (percentage >= 0.85) return 'A';
+  if (percentage >= 0.70) return 'B';
+  if (percentage >= 0.50) return 'C';
+  return 'D';
+}
+
+export function completeLesson(lessonId, score, maxScore, xpReward, bestCombo = 0) {
   const progress = getProgress();
   const percentage = score / maxScore;
-  const stars = percentage >= 0.9 ? 3 : percentage >= 0.7 ? 2 : percentage >= 0.5 ? 1 : 0;
+  const grade = getGrade(percentage);
   const xpEarned = Math.round(xpReward * percentage);
 
   const existing = progress.completedLessons[lessonId];
   if (!existing || score > existing.bestScore) {
     progress.completedLessons[lessonId] = {
-      stars,
+      grade,
       bestScore: score,
       maxScore,
+      bestCombo,
       completedAt: new Date().toISOString(),
     };
   }
@@ -60,7 +69,7 @@ export function completeLesson(lessonId, score, maxScore, xpReward) {
   progress.level = Math.floor(progress.totalXP / 100) + 1;
 
   saveProgress(progress);
-  return { stars, xpEarned };
+  return { grade, xpEarned };
 }
 
 export function isLessonUnlocked(lessonId, allLessons) {

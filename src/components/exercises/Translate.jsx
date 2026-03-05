@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './exercises.css';
+import SpeakerButton from '../SpeakerButton';
 
 export default function Translate({ exercise, onAnswer, answered }) {
   const [input, setInput] = useState('');
@@ -13,10 +14,17 @@ export default function Translate({ exercise, onAnswer, answered }) {
     onAnswer(isCorrect);
   };
 
+  // If translating FROM French, the sentence is French; if TO French, the answer is French
+  const isFromFrench = exercise.prompt?.toLowerCase().includes('to english');
+  const frenchText = isFromFrench ? exercise.sentence : exercise.answer;
+
   return (
     <div className="exercise translate">
       <p className="exercise-prompt">{exercise.prompt}</p>
-      <h2 className="exercise-sentence">{exercise.sentence}</h2>
+      <div className="exercise-sentence-row">
+        {isFromFrench && <SpeakerButton text={frenchText} size="large" autoPlay />}
+        <h2 className="exercise-sentence">{exercise.sentence}</h2>
+      </div>
 
       <form onSubmit={handleSubmit} className="translate-form">
         <input
@@ -46,9 +54,19 @@ export default function Translate({ exercise, onAnswer, answered }) {
       </form>
 
       {answered && input.trim().toLowerCase() !== exercise.answer.toLowerCase() && (
-        <p className="correct-answer">
-          Correct answer: <strong>{exercise.answer}</strong>
-        </p>
+        <div className="correct-answer-row">
+          <p className="correct-answer">
+            Correct answer: <strong>{exercise.answer}</strong>
+          </p>
+          <SpeakerButton text={exercise.answer} size="small" autoPlay={!isFromFrench} />
+        </div>
+      )}
+
+      {answered && input.trim().toLowerCase() === exercise.answer.toLowerCase() && !isFromFrench && (
+        <div className="correct-answer-row">
+          <SpeakerButton text={exercise.answer} size="small" autoPlay />
+          <span className="hear-answer">Listen to your answer</span>
+        </div>
       )}
 
       {!answered && exercise.hint && (

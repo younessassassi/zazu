@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './exercises.css';
+import SpeakerButton from '../SpeakerButton';
 
 export default function FillBlank({ exercise, onAnswer, answered }) {
   const [input, setInput] = useState('');
@@ -15,10 +16,15 @@ export default function FillBlank({ exercise, onAnswer, answered }) {
 
   // Render sentence with blank highlighted
   const parts = exercise.sentence.split('_____');
+  // Build the full French sentence for audio
+  const fullSentence = exercise.sentence.replace('_____', exercise.answer);
 
   return (
     <div className="exercise fill-blank">
-      <p className="exercise-prompt">Fill in the blank:</p>
+      <div className="exercise-question-row">
+        <SpeakerButton text={fullSentence} size="medium" />
+        <p className="exercise-prompt">Fill in the blank:</p>
+      </div>
 
       <div className="fill-sentence">
         <span>{parts[0]}</span>
@@ -52,9 +58,19 @@ export default function FillBlank({ exercise, onAnswer, answered }) {
       </form>
 
       {answered && input.trim().toLowerCase() !== exercise.answer.toLowerCase() && (
-        <p className="correct-answer">
-          Correct answer: <strong>{exercise.answer}</strong>
-        </p>
+        <div className="correct-answer-row">
+          <p className="correct-answer">
+            Correct answer: <strong>{exercise.answer}</strong>
+          </p>
+          <SpeakerButton text={fullSentence} size="small" autoPlay />
+        </div>
+      )}
+
+      {answered && input.trim().toLowerCase() === exercise.answer.toLowerCase() && (
+        <div className="correct-answer-row">
+          <SpeakerButton text={fullSentence} size="small" autoPlay />
+          <span className="hear-answer">Listen to the full sentence</span>
+        </div>
       )}
 
       {!answered && exercise.hint && (

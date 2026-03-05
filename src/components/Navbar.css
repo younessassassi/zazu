@@ -1,10 +1,10 @@
 .navbar {
-  background: #58cc02;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
   padding: 0 20px;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 12px rgba(79, 70, 229, 0.3);
 }
 
 .navbar-inner {
@@ -36,21 +36,28 @@
 
 .navbar-stats {
   display: flex;
-  gap: 20px;
+  gap: 8px;
 }
 
-.stat-item {
+.stat-pill {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 5px 12px;
+  border-radius: 20px;
   color: white;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   cursor: default;
 }
 
-.stat-icon {
-  font-size: 18px;
+.pill-icon {
+  font-size: 16px;
+}
+
+.pill-value {
+  font-size: 14px;
 }
 
 .navbar-links {
@@ -91,7 +98,11 @@
 
 @media (max-width: 600px) {
   .navbar-stats {
-    gap: 12px;
+    gap: 6px;
+  }
+  .stat-pill {
+    padding: 4px 8px;
+    font-size: 12px;
   }
   .brand-text {
     display: none;
