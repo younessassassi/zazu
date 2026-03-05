@@ -51,7 +51,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: '_____ , comment allez-vous?',
         answer: 'bonjour',
-        hint: 'A greeting used during the day',
+        options: ['merci', 'bonjour', 'bonsoir', 'pardon'],
+        correct: 1,
       },
       {
         type: 'matching',
@@ -103,7 +104,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: '_____ beaucoup!',
         answer: 'merci',
-        hint: 'Thank you',
+        options: ['bonjour', 'pardon', 'merci', 'excusez'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -169,7 +171,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "Je _____ français.",
         answer: 'parle',
-        hint: 'I speak French',
+        options: ['suis', 'parle', 'mange', 'vais'],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -254,7 +257,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "Ma _____ s'appelle Marie.",
         answer: 'mère',
-        hint: 'My mother is named Marie',
+        options: ['sœur', 'fille', 'mère', 'grand-mère'],
+        correct: 2,
       },
       {
         type: 'multipleChoice',
@@ -306,7 +310,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: 'Il est très _____.',
         answer: 'grand',
-        hint: 'He is very tall',
+        options: ['petit', 'jeune', 'grand', 'beau'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -377,7 +382,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "Je mange du _____.",
         answer: 'pain',
-        hint: 'I eat bread',
+        options: ['fromage', 'pain', 'riz', 'poulet'],
+        correct: 1,
       },
       {
         type: 'matching',
@@ -446,7 +452,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "Je voudrais un _____, s'il vous plaît.",
         answer: 'café',
-        hint: "I would like a coffee, please",
+        options: ['thé', 'lait', 'café', 'jus'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -517,7 +524,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "Je voudrais un billet pour _____.",
         answer: 'paris',
-        hint: 'The capital of France',
+        options: ['lyon', 'paris', 'marseille', 'nice'],
+        correct: 1,
       },
       {
         type: 'matching',
@@ -578,7 +586,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "L'_____, s'il vous plaît.",
         answer: 'addition',
-        hint: 'The bill, please',
+        options: ['menu', 'addition', 'table', 'entrée'],
+        correct: 1,
       },
       {
         type: 'multipleChoice',
@@ -652,7 +661,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: 'Un, deux, _____, quatre, cinq',
         answer: 'trois',
-        hint: 'The number 3',
+        options: ['six', 'trois', 'sept', 'huit'],
+        correct: 1,
       },
       {
         type: 'matching',
@@ -721,7 +731,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: 'Lundi, _____, mercredi, jeudi...',
         answer: 'mardi',
-        hint: 'Tuesday',
+        options: ['vendredi', 'samedi', 'mardi', 'dimanche'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -792,7 +803,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: "Je _____ du café chaque matin.",
         answer: 'bois',
-        hint: 'I drink coffee every morning',
+        options: ['mange', 'fais', 'bois', 'vois'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -853,13 +865,15 @@ const lessons = [
         type: 'fillBlank',
         sentence: 'Je _____ étudiant.',
         answer: 'suis',
-        hint: 'I am a student (form of être)',
+        options: ['ai', 'suis', 'fais', 'vais'],
+        correct: 1,
       },
       {
         type: 'fillBlank',
         sentence: "J' _____ un chat.",
         answer: 'ai',
-        hint: 'I have a cat (form of avoir)',
+        options: ['suis', 'veux', 'ai', 'fais'],
+        correct: 2,
       },
       {
         type: 'matching',
@@ -930,7 +944,8 @@ const lessons = [
         type: 'fillBlank',
         sentence: 'Le ciel est _____.',
         answer: 'bleu',
-        hint: 'The sky is blue',
+        options: ['rouge', 'vert', 'noir', 'bleu'],
+        correct: 3,
       },
       {
         type: 'matching',
