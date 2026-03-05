@@ -1,0 +1,196 @@
+.lesson-container {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.lesson-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  background: #f7f7f7;
+  z-index: 10;
+}
+
+.lesson-close {
+  background: none;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  color: #afafaf;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.lesson-close:hover {
+  border-color: #ff4b4b;
+  color: #ff4b4b;
+}
+
+.lesson-progress-bar {
+  flex: 1;
+  height: 16px;
+  background: #e5e5e5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.lesson-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #58cc02, #46a302);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.lesson-hearts {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.heart {
+  font-size: 20px;
+  transition: all 0.3s;
+}
+
+.heart.lost {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+
+/* Exercise Body */
+.lesson-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 160px;
+}
+
+/* Feedback Bar */
+.lesson-feedback {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 50;
+  animation: slideUp 0.3s ease;
+}
+
+.lesson-feedback.correct {
+  background: #d7ffb8;
+  border-top: 2px solid #58cc02;
+}
+
+.lesson-feedback.incorrect {
+  background: #ffdfe0;
+  border-top: 2px solid #ff4b4b;
+}
+
+.feedback-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 400px;
+}
+
+.feedback-icon {
+  font-size: 28px;
+}
+
+.feedback-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-title {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.correct .feedback-title {
+  color: #58a700;
+}
+
+.incorrect .feedback-title {
+  color: #ea2b2b;
+}
+
+.feedback-detail {
+  font-size: 14px;
+  color: #777;
+}
+
+.continue-btn {
+  background: #58cc02;
+  color: white;
+  border: none;
+  border-bottom: 4px solid #46a302;
+  padding: 12px 30px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.incorrect .continue-btn {
+  background: #ff4b4b;
+  border-bottom-color: #cc3c3c;
+}
+
+.continue-btn:hover {
+  filter: brightness(1.05);
+}
+
+.continue-btn:active {
+  border-bottom-width: 2px;
+  transform: translateY(2px);
+}
+
+.lesson-not-found {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.lesson-not-found button {
+  background: #58cc02;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
