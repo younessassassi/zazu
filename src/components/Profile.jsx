@@ -2,10 +2,12 @@ import { getUserProgress, resetProgress, getGrade } from '../data/progress';
 import lessons from '../data/lessons';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import './Profile.css';
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [progress, setProgress] = useState(getUserProgress());
   const completedCount = Object.keys(progress.completedLessons).length;
   const totalLessons = lessons.length;
@@ -17,18 +19,28 @@ export default function Profile() {
     : 0;
   const avgGrade = completedEntries.length > 0 ? getGrade(avgAccuracy) : '—';
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (window.confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-      resetProgress();
+      await resetProgress();
       setProgress(getUserProgress());
     }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
   };
 
   return (
     <div className="profile">
       <div className="profile-header">
-        <div className="profile-avatar">🧑‍🎓</div>
-        <h1>Your Profile</h1>
+        {user?.photoURL ? (
+          <img src={user.photoURL} alt="" className="profile-avatar-img" referrerPolicy="no-referrer" />
+        ) : (
+          <div className="profile-avatar">🧑‍🎓</div>
+        )}
+        <h1>{user?.displayName || 'Learner'}</h1>
+        <p className="profile-email">{user?.email}</p>
         <p className="profile-level">Level {progress.level} — {completedCount > 0 ? `Average: ${avgGrade}` : 'Beginner'}</p>
       </div>
 
@@ -93,9 +105,14 @@ export default function Profile() {
 
       <div className="profile-section">
         <h2>Settings</h2>
-        <button className="reset-btn" onClick={handleReset}>
-          Reset All Progress
-        </button>
+        <div className="settings-actions">
+          <button className="reset-btn" onClick={handleReset}>
+            Reset All Progress
+          </button>
+          <button className="logout-btn" onClick={handleLogout}>
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   );

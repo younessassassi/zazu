@@ -1,0 +1,155 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #4f46e5 0%, #818cf8 100%);
+}
+
+.login-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-logo {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.login-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #3c3c3c;
+  margin: 0 0 4px;
+}
+
+.login-header p {
+  color: #afafaf;
+  font-size: 15px;
+  margin: 0;
+}
+
+.login-error {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-input {
+  padding: 14px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-input:focus {
+  border-color: #818cf8;
+}
+
+.login-btn {
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+}
+
+.login-btn.primary {
+  background: #4f46e5;
+  color: white;
+  border-bottom: 4px solid #3730a3;
+  margin-top: 4px;
+}
+
+.login-btn.primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.login-btn.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-btn.google {
+  background: white;
+  color: #3c3c3c;
+  border: 2px solid #e5e5e5;
+  width: 100%;
+}
+
+.login-btn.google:hover {
+  background: #fafafa;
+  border-color: #cdcdcd;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: #cdcdcd;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e5e5e5;
+}
+
+.login-toggle {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #afafaf;
+}
+
+.login-toggle button {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.login-toggle button:hover {
+  text-decoration: underline;
+}

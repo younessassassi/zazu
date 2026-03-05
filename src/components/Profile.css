@@ -158,6 +158,26 @@
   text-align: right;
 }
 
+.profile-avatar-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.profile-email {
+  color: #afafaf;
+  font-size: 14px;
+  margin: 0 0 4px;
+}
+
+.settings-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* Reset Button */
 .reset-btn {
   background: white;
@@ -174,6 +194,24 @@
 .reset-btn:hover {
   background: #ef4444;
   color: white;
+}
+
+.logout-btn {
+  background: white;
+  color: #777;
+  border: 2px solid #e5e5e5;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.logout-btn:hover {
+  border-color: #afafaf;
+  color: #3c3c3c;
 }
 
 @media (max-width: 400px) {

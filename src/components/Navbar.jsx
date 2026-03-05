@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { getUserProgress } from '../data/progress';
 import lessons from '../data/lessons';
 import './Navbar.css';
 
 export default function Navbar() {
   const location = useLocation();
+  const { user } = useAuth();
   const [progress, setProgress] = useState(getUserProgress());
 
   useEffect(() => {
@@ -49,8 +51,14 @@ export default function Navbar() {
             to="/profile"
             className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}
           >
-            <span className="nav-icon">👤</span>
-            <span className="nav-label">Profile</span>
+            {user?.photoURL ? (
+              <img src={user.photoURL} alt="" className="nav-avatar" referrerPolicy="no-referrer" />
+            ) : (
+              <span className="nav-avatar-letter">
+                {(user?.displayName || user?.email || '?')[0].toUpperCase()}
+              </span>
+            )}
+            <span className="nav-label">{user?.displayName?.split(' ')[0] || 'Profile'}</span>
           </Link>
         </div>
       </div>
