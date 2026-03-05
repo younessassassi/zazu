@@ -1,10 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './exercises.css';
 import SpeakerButton from '../SpeakerButton';
-import { speakFrench } from '../../utils/speech';
+import { speakFrench, speakFrenchAsync, stopSpeech } from '../../utils/speech';
 
 export default function Dialogue({ exercise, onAnswer, answered }) {
   const [selected, setSelected] = useState(null);
+  const [activeLine, setActiveLine] = useState(-1);
+  const [autoPlayDone, setAutoPlayDone] = useState(false);
+  const cancelledRef = useRef(false);
+
+  useEffect(() => {
+    cancelledRef.current = false;
+    let mounted = true;
+
+    async function playDialogue() {
+      for (let i = 0; i < exercise.lines.length; i++) {
+        if (cancelledRef.current || !mounted) return;
+        setActiveLine(i);
+        await speakFrenchAsync(exercise.lines[i].french);
+        // Small pause between lines
+        if (!cancelledRef.current && mounted) {
+          await new Promise((r) => setTimeout(r, 400));
+        }
+      }
+      if (mounted) {
+        setActiveLine(-1);
+        setAutoPlayDone(true);
+      }
+    }
+
+    playDialogue();
+
+    return () => {
+      mounted = false;
+      cancelledRef.current = true;
+      stopSpeech();
+    };
+  }, [exercise]);
+
+  const handleReplay = async () => {
+    cancelledRef.current = false;
+    setAutoPlayDone(false);
+    for (let i = 0; i < exercise.lines.length; i++) {
+      if (cancelledRef.current) return;
+      setActiveLine(i);
+      await speakFrenchAsync(exercise.lines[i].french);
+      if (!cancelledRef.current) {
+        await new Promise((r) => setTimeout(r, 400));
+      }
+    }
+    setActiveLine(-1);
+    setAutoPlayDone(true);
+  };
 
   const handleSelect = (index) => {
     if (answered) return;
@@ -14,13 +61,13 @@ export default function Dialogue({ exercise, onAnswer, answered }) {
 
   return (
     <div className="exercise dialogue">
-      <p className="exercise-prompt">Read the dialogue, then answer:</p>
+      <p className="exercise-prompt">Listen to the dialogue, then answer:</p>
 
       <div className="dialogue-scene">
         <div className="dialogue-picture">{exercise.picture}</div>
         <div className="dialogue-lines">
           {exercise.lines.map((line, i) => (
-            <div key={i} className={`dialogue-line ${i % 2 === 0 ? 'left' : 'right'}`}>
+            <div key={i} className={`dialogue-line ${i % 2 === 0 ? 'left' : 'right'} ${activeLine === i ? 'speaking' : ''}`}>
               <div className="dialogue-speaker">{line.speaker}</div>
               <div className="dialogue-bubble">
                 <span className="dialogue-french">{line.french}</span>
@@ -36,6 +83,11 @@ export default function Dialogue({ exercise, onAnswer, answered }) {
             </div>
           ))}
         </div>
+        {autoPlayDone && (
+          <button className="dialogue-replay" onClick={handleReplay} title="Replay dialogue">
+            🔁 Replay
+          </button>
+        )}
       </div>
 
       <h3 className="dialogue-question">{exercise.question}</h3>

@@ -378,6 +378,36 @@
   line-height: 1.4;
 }
 
+.dialogue-line.speaking .dialogue-bubble {
+  border-color: #818cf8;
+  background: #eef2ff;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+}
+
+.dialogue-line.right.speaking .dialogue-bubble {
+  background: #e0e7ff;
+  border-color: #818cf8;
+}
+
+.dialogue-replay {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6366f1;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dialogue-replay:hover {
+  border-color: #818cf8;
+  background: #eef2ff;
+}
+
 /* Matching */
 .matching-grid {
   display: grid;

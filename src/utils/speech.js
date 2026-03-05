@@ -55,3 +55,23 @@ export function stopSpeech() {
     window.speechSynthesis.cancel();
   }
 }
+
+/**
+ * Speak French text and return a Promise that resolves when done.
+ */
+export function speakFrenchAsync(text, speed = 'normal') {
+  return new Promise((resolve) => {
+    if (!window.speechSynthesis) { resolve(); return; }
+    window.speechSynthesis.cancel();
+    if (!voiceLoaded) loadFrenchVoice();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    utterance.rate = speed === 'slow' ? 0.6 : 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    if (frenchVoice) utterance.voice = frenchVoice;
+    utterance.onend = resolve;
+    utterance.onerror = resolve;
+    window.speechSynthesis.speak(utterance);
+  });
+}
