@@ -17,7 +17,8 @@ export default function Dialogue({ exercise, onAnswer, answered }) {
       for (let i = 0; i < exercise.lines.length; i++) {
         if (cancelledRef.current || !mounted) return;
         setActiveLine(i);
-        await speakFrenchAsync(exercise.lines[i].french);
+        const line = exercise.lines[i];
+        await speakFrenchAsync(line.french, 'normal', line.gender);
         // Small pause between lines
         if (!cancelledRef.current && mounted) {
           await new Promise((r) => setTimeout(r, 400));
@@ -44,7 +45,8 @@ export default function Dialogue({ exercise, onAnswer, answered }) {
     for (let i = 0; i < exercise.lines.length; i++) {
       if (cancelledRef.current) return;
       setActiveLine(i);
-      await speakFrenchAsync(exercise.lines[i].french);
+      const line = exercise.lines[i];
+      await speakFrenchAsync(line.french, 'normal', line.gender);
       if (!cancelledRef.current) {
         await new Promise((r) => setTimeout(r, 400));
       }
@@ -74,7 +76,7 @@ export default function Dialogue({ exercise, onAnswer, answered }) {
                 <span className="dialogue-english">{line.english}</span>
                 <span
                   className="dialogue-audio"
-                  onClick={() => speakFrench(line.french)}
+                  onClick={() => speakFrench(line.french, 'normal', line.gender)}
                   title="Listen"
                 >
                   🔊
