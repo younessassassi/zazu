@@ -18,8 +18,8 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand">
-          <span className="brand-icon">🇫🇷</span>
-          <span className="brand-text">Parlez</span>
+          <span className="brand-icon">�</span>
+          <span className="brand-text">Zazu</span>
         </Link>
 
         <div className="navbar-stats">
