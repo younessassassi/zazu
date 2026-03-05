@@ -95,6 +95,20 @@ const lessons = [
     exercises: [
       {
         type: 'multipleChoice',
+        question: 'What does "Bonsoir" mean?',
+        options: ['Good morning', 'Good evening', 'Good night', 'Hello'],
+        correct: 1,
+      },
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'Goodbye',
+        answer: 'au revoir',
+        options: ['bonjour', 'bonsoir', 'au revoir', 'bonne nuit'],
+        correct: 2,
+      },
+      {
+        type: 'multipleChoice',
         question: 'What does "Merci" mean?',
         options: ['Please', 'Sorry', 'Thank you', 'Excuse me'],
         correct: 2,
@@ -173,6 +187,20 @@ const lessons = [
     description: 'Introduce yourself in French',
     xpReward: 10,
     exercises: [
+      {
+        type: 'multipleChoice',
+        question: 'What does "De rien" mean?',
+        options: ['Please', 'Sorry', 'You\'re welcome', 'Thank you'],
+        correct: 2,
+      },
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'Good evening',
+        answer: 'bonsoir',
+        options: ['bonjour', 'bonsoir', 'salut', 'bonne nuit'],
+        correct: 1,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "Je m\'appelle" mean?',
@@ -256,6 +284,20 @@ const lessons = [
     xpReward: 15,
     exercises: [
       {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'Nice to meet you',
+        answer: 'enchanté',
+        options: ['bonjour', 'enchanté', 'merci', 'au revoir'],
+        correct: 1,
+      },
+      {
+        type: 'multipleChoice',
+        question: 'How do you say "Please" in French?',
+        options: ['Merci', 'Pardon', 'S\'il vous plaît', 'De rien'],
+        correct: 2,
+      },
+      {
         type: 'multipleChoice',
         question: 'What does "la mère" mean?',
         options: ['The father', 'The mother', 'The sister', 'The grandmother'],
@@ -338,6 +380,20 @@ const lessons = [
     description: 'Describe people in French',
     xpReward: 15,
     exercises: [
+      {
+        type: 'multipleChoice',
+        question: 'What does "le fils" mean?',
+        options: ['The daughter', 'The son', 'The brother', 'The father'],
+        correct: 1,
+      },
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'Good night',
+        answer: 'bonne nuit',
+        options: ['bonjour', 'bonsoir', 'bonne nuit', 'au revoir'],
+        correct: 2,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "grand" mean?',
@@ -425,6 +481,20 @@ const lessons = [
     xpReward: 15,
     exercises: [
       {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'He is tall',
+        answer: 'il est grand',
+        options: ['il est petit', 'il est beau', 'il est grand', 'il est jeune'],
+        correct: 2,
+      },
+      {
+        type: 'multipleChoice',
+        question: 'How do you say "I speak" in French?',
+        options: ['Je suis', 'Je parle', 'Je mange', 'Je vais'],
+        correct: 1,
+      },
+      {
         type: 'multipleChoice',
         question: 'What does "le pain" mean?',
         options: ['The cake', 'The bread', 'The cheese', 'The butter'],
@@ -507,6 +577,19 @@ const lessons = [
     description: 'Learn drink vocabulary',
     xpReward: 15,
     exercises: [
+      {
+        type: 'multipleChoice',
+        question: 'What does "le fromage" mean?',
+        options: ['The bread', 'The rice', 'The cheese', 'The apple'],
+        correct: 2,
+      },
+      {
+        type: 'fillBlank',
+        sentence: 'Mon _____ est grand.',
+        answer: 'frère',
+        options: ['père', 'fils', 'frère', 'ami'],
+        correct: 2,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "l\'eau" mean?',
@@ -593,6 +676,20 @@ const lessons = [
     xpReward: 20,
     exercises: [
       {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'I am thirsty',
+        answer: "j'ai soif",
+        options: ["j'ai faim", "j'ai soif", 'je bois', 'je mange'],
+        correct: 1,
+      },
+      {
+        type: 'multipleChoice',
+        question: 'What does "Merci beaucoup" mean?',
+        options: ['You\'re welcome', 'Excuse me', 'Thank you very much', 'Please'],
+        correct: 2,
+      },
+      {
         type: 'multipleChoice',
         question: 'What does "la gare" mean?',
         options: ['The airport', 'The train station', 'The bus stop', 'The hotel'],
@@ -673,6 +770,20 @@ const lessons = [
     description: 'Order food at a French restaurant',
     xpReward: 20,
     exercises: [
+      {
+        type: 'multipleChoice',
+        question: 'What does "à gauche" mean?',
+        options: ['To the right', 'To the left', 'Straight ahead', 'Behind'],
+        correct: 1,
+      },
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'I am hungry',
+        answer: "j'ai faim",
+        options: ["j'ai soif", "j'ai faim", 'je mange', 'je bois'],
+        correct: 1,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "l\'addition" mean?',
@@ -758,6 +869,20 @@ const lessons = [
     exercises: [
       {
         type: 'multipleChoice',
+        question: 'What does "le thé" mean?',
+        options: ['The coffee', 'The water', 'The tea', 'The milk'],
+        correct: 2,
+      },
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'I would like',
+        answer: 'je voudrais',
+        options: ['je veux', 'je voudrais', "j'ai besoin", 'je peux'],
+        correct: 1,
+      },
+      {
+        type: 'multipleChoice',
         question: 'What is "un" in English?',
         options: ['Zero', 'One', 'Two', 'Three'],
         correct: 1,
@@ -839,6 +964,20 @@ const lessons = [
     description: 'Days of the week and telling time',
     xpReward: 15,
     exercises: [
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'She is beautiful',
+        answer: 'elle est belle',
+        options: ['elle est grande', 'elle est belle', 'elle est jeune', 'elle est petite'],
+        correct: 1,
+      },
+      {
+        type: 'multipleChoice',
+        question: 'What is "vingt" in English?',
+        options: ['Twelve', 'Fifteen', 'Twenty', 'Ten'],
+        correct: 2,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "lundi" mean?',
@@ -926,6 +1065,20 @@ const lessons = [
     exercises: [
       {
         type: 'multipleChoice',
+        question: 'What does "demain" mean?',
+        options: ['Yesterday', 'Today', 'Tomorrow', 'Now'],
+        correct: 2,
+      },
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'Straight ahead',
+        answer: 'tout droit',
+        options: ['à gauche', 'à droite', 'tout droit', 'derrière'],
+        correct: 2,
+      },
+      {
+        type: 'multipleChoice',
         question: 'What does "manger" mean?',
         options: ['To drink', 'To eat', 'To sleep', 'To run'],
         correct: 1,
@@ -1007,6 +1160,19 @@ const lessons = [
     description: 'Master the two most important French verbs',
     xpReward: 20,
     exercises: [
+      {
+        type: 'multipleChoice',
+        question: 'What does "aller" mean?',
+        options: ['To eat', 'To drink', 'To go', 'To sleep'],
+        correct: 2,
+      },
+      {
+        type: 'fillBlank',
+        sentence: 'Mon _____ s\'appelle Pierre.',
+        answer: 'père',
+        options: ['frère', 'fils', 'père', 'ami'],
+        correct: 2,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "être" mean?',
@@ -1091,6 +1257,20 @@ const lessons = [
     description: 'Learn colors in French',
     xpReward: 15,
     exercises: [
+      {
+        type: 'translate',
+        prompt: 'Translate to French:',
+        sentence: 'I have',
+        answer: "j'ai",
+        options: ['je suis', "j'ai", 'je vais', 'je fais'],
+        correct: 1,
+      },
+      {
+        type: 'multipleChoice',
+        question: 'What does "la pomme" mean?',
+        options: ['The bread', 'The apple', 'The cheese', 'The cake'],
+        correct: 1,
+      },
       {
         type: 'multipleChoice',
         question: 'What does "rouge" mean?',
