@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Lesson from './components/Lesson';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import AdminPanel from './components/AdminPanel';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -25,7 +26,7 @@ function AppLayout() {
   useEffect(() => {
     if (user) {
       setSyncing(true);
-      initProgressForUser(user.uid).finally(() => setSyncing(false));
+      initProgressForUser(user.uid, { email: user.email, displayName: user.displayName }).finally(() => setSyncing(false));
     } else if (!loading) {
       clearLocalOnLogout();
     }
@@ -47,6 +48,7 @@ function AppLayout() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/lesson/:id" element={<ProtectedRoute><Lesson /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
       </Routes>
     </>
   );

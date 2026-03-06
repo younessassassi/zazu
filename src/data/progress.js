@@ -1,6 +1,6 @@
 // Progress tracking — localStorage cache + Firestore cloud sync
 
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const STORAGE_KEY = 'zazu_progress';
@@ -31,16 +31,23 @@ function saveLocal(progress) {
 }
 
 // Called when user logs in — loads cloud progress and merges with any local data
-export async function initProgressForUser(uid) {
+export async function initProgressForUser(uid, userInfo = {}) {
   _currentUid = uid;
   const ref = doc(db, 'users', uid);
   const snap = await getDoc(ref);
   const cloud = snap.exists() ? snap.data() : null;
   const local = getLocalProgress();
 
+  // Preserve profile fields
+  const profile = {
+    email: userInfo.email || cloud?.email || null,
+    displayName: userInfo.displayName || cloud?.displayName || null,
+    isAdmin: cloud?.isAdmin || false,
+  };
+
   if (cloud) {
     // Merge: keep the best score per lesson from either source
-    const merged = { ...defaultProgress(), ...cloud };
+    const merged = { ...defaultProgress(), ...cloud, ...profile };
     for (const [id, localLesson] of Object.entries(local.completedLessons)) {
       const cloudLesson = merged.completedLessons[id];
       if (!cloudLesson || localLesson.bestScore > cloudLesson.bestScore) {
@@ -58,8 +65,9 @@ export async function initProgressForUser(uid) {
     return merged;
   } else {
     // First time cloud — push local data up
-    await setDoc(ref, local);
-    return local;
+    const initial = { ...local, ...profile };
+    await setDoc(ref, initial);
+    return initial;
   }
 }
 
@@ -127,7 +135,8 @@ export function completeLesson(lessonId, score, maxScore, xpReward, bestCombo = 
   return { grade, xpEarned };
 }
 
-export function isLessonUnlocked(lessonId, allLessons) {
+export function isLessonUnlocked(lessonId, allLessons, isAdmin = false) {
+  if (isAdmin) return true;
   const progress = getLocalProgress();
   const lessonIndex = allLessons.findIndex((l) => l.id === lessonId);
   if (lessonIndex === 0) return true;
@@ -149,4 +158,28 @@ export async function resetProgress() {
       // ignore
     }
   }
+}
+
+// --- Admin helpers ---
+
+export async function getIsAdmin(uid) {
+  try {
+    const snap = await getDoc(doc(db, 'users', uid));
+    return snap.exists() ? !!snap.data().isAdmin : false;
+  } catch {
+    return false;
+  }
+}
+
+export async function searchUsersByEmail(email) {
+  const q = query(collection(db, 'users'), where('email', '==', email));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
+}
+
+export async function setUserAdminStatus(uid, isAdmin) {
+  const ref = doc(db, 'users', uid);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('User not found');
+  await setDoc(ref, { ...snap.data(), isAdmin }, { merge: true });
 }

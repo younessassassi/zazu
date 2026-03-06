@@ -7,7 +7,7 @@ import './Navbar.css';
 
 export default function Navbar() {
   const location = useLocation();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [progress, setProgress] = useState(getUserProgress());
 
   useEffect(() => {
@@ -47,6 +47,15 @@ export default function Navbar() {
             <span className="nav-icon">🏠</span>
             <span className="nav-label">Learn</span>
           </Link>
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className={`nav-link ${location.pathname === '/admin' ? 'active' : ''}`}
+            >
+              <span className="nav-icon">🛡️</span>
+              <span className="nav-label">Admin</span>
+            </Link>
+          )}
           <Link
             to="/profile"
             className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}

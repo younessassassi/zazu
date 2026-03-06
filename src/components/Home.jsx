@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { getUnits } from '../data/lessons';
 import { getUserProgress, isLessonUnlocked, getLessonProgress } from '../data/progress';
+import { useAuth } from '../contexts/AuthContext';
 import lessons from '../data/lessons';
 import './Home.css';
 
@@ -32,6 +33,7 @@ function ProgressRing({ percentage, size = 48, stroke = 4 }) {
 
 export default function Home() {
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
   const units = getUnits();
   const progress = getUserProgress();
   const completedCount = Object.keys(progress.completedLessons).length;
@@ -78,7 +80,7 @@ export default function Home() {
 
               <div className="lesson-grid">
                 {unitLessons.map((lesson) => {
-                  const unlocked = isLessonUnlocked(lesson.id, lessons);
+                  const unlocked = isLessonUnlocked(lesson.id, lessons, isAdmin);
                   const lessonProg = getLessonProgress(lesson.id);
                   const isCompleted = !!lessonProg;
                   const accuracy = isCompleted
