@@ -8,6 +8,7 @@ import Translate from './exercises/Translate';
 import FillBlank from './exercises/FillBlank';
 import Matching from './exercises/Matching';
 import Dialogue from './exercises/Dialogue';
+import Pronunciation from './exercises/Pronunciation';
 import LessonComplete from './LessonComplete';
 import './Lesson.css';
 
@@ -119,6 +120,15 @@ export default function Lesson() {
       case 'dialogue':
         return (
           <Dialogue
+            key={currentIndex}
+            exercise={exercise}
+            onAnswer={handleAnswer}
+            answered={answered}
+          />
+        );
+      case 'pronunciation':
+        return (
+          <Pronunciation
             key={currentIndex}
             exercise={exercise}
             onAnswer={handleAnswer}

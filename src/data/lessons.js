@@ -70,6 +70,11 @@ const lessons = [
         correct: 1,
       },
       {
+        type: 'pronunciation',
+        text: 'Bonsoir',
+        english: 'Good evening',
+      },
+      {
         type: 'dialogue',
         picture: '👫🏙️',
         lines: [
@@ -164,6 +169,11 @@ const lessons = [
         correct: 2,
       },
       {
+        type: 'pronunciation',
+        text: "S'il vous plaît",
+        english: 'Please',
+      },
+      {
         type: 'dialogue',
         picture: '🏪🛒',
         lines: [
@@ -256,6 +266,11 @@ const lessons = [
         question: 'How do you say "I am from..." in French?',
         options: ['Je suis de...', 'Je vis à...', 'Je vais à...', 'Je viens...'],
         correct: 0,
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je m\'appelle',
+        english: 'My name is',
       },
       {
         type: 'dialogue',
@@ -357,6 +372,11 @@ const lessons = [
         ],
       },
       {
+        type: 'pronunciation',
+        text: 'Ma mère et mon père',
+        english: 'My mother and my father',
+      },
+      {
         type: 'dialogue',
         picture: '👨‍👩‍👧‍👦🏠',
         lines: [
@@ -452,6 +472,11 @@ const lessons = [
           { french: 'Fort', english: 'Strong' },
           { french: 'Gentil', english: 'Kind' },
         ],
+      },
+      {
+        type: 'pronunciation',
+        text: 'Elle est très belle',
+        english: 'She is very beautiful',
       },
       {
         type: 'dialogue',
@@ -554,6 +579,11 @@ const lessons = [
         ],
       },
       {
+        type: 'pronunciation',
+        text: "J'ai faim",
+        english: 'I am hungry',
+      },
+      {
         type: 'dialogue',
         picture: '🧑‍🍳🍽️',
         lines: [
@@ -648,6 +678,11 @@ const lessons = [
           { french: 'La bière', english: 'The beer' },
           { french: 'Le jus d\'orange', english: 'The orange juice' },
         ],
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je voudrais un café',
+        english: 'I would like a coffee',
       },
       {
         type: 'dialogue',
@@ -747,6 +782,11 @@ const lessons = [
         ],
       },
       {
+        type: 'pronunciation',
+        text: 'Où est la gare',
+        english: 'Where is the train station',
+      },
+      {
         type: 'dialogue',
         picture: '🗺️🧳',
         lines: [
@@ -839,6 +879,11 @@ const lessons = [
         question: 'What does "Bon appétit" mean?',
         options: ['Good morning', 'Enjoy your meal', 'Goodbye', 'Thank you'],
         correct: 1,
+      },
+      {
+        type: 'pronunciation',
+        text: "L'addition, s'il vous plaît",
+        english: 'The bill, please',
       },
       {
         type: 'dialogue',
@@ -941,6 +986,11 @@ const lessons = [
         ],
       },
       {
+        type: 'pronunciation',
+        text: 'C\'est quinze euros',
+        english: 'It\'s fifteen euros',
+      },
+      {
         type: 'dialogue',
         picture: '🛍️💰',
         lines: [
@@ -1036,6 +1086,11 @@ const lessons = [
           { french: 'Hier', english: 'Yesterday' },
           { french: 'Maintenant', english: 'Now' },
         ],
+      },
+      {
+        type: 'pronunciation',
+        text: 'Aujourd\'hui c\'est mercredi',
+        english: 'Today is Wednesday',
       },
       {
         type: 'dialogue',
@@ -1137,6 +1192,11 @@ const lessons = [
         ],
       },
       {
+        type: 'pronunciation',
+        text: 'Je mange et je bois',
+        english: 'I eat and I drink',
+      },
+      {
         type: 'dialogue',
         picture: '🏃‍♂️🌅',
         lines: [
@@ -1230,6 +1290,11 @@ const lessons = [
         question: 'Complete: "Vous _____ français?"',
         options: ['est', 'avez', 'êtes', 'sont'],
         correct: 2,
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je suis étudiant',
+        english: 'I am a student',
       },
       {
         type: 'dialogue',
@@ -1329,6 +1394,11 @@ const lessons = [
           { french: 'Gris', english: 'Gray' },
           { french: 'Rose', english: 'Pink' },
         ],
+      },
+      {
+        type: 'pronunciation',
+        text: 'Le ciel est bleu',
+        english: 'The sky is blue',
       },
       {
         type: 'dialogue',

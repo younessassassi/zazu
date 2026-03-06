@@ -421,6 +421,197 @@
   gap: 10px;
 }
 
+/* ===== Pronunciation Exercise ===== */
+
+.pronunciation .pronun-hint {
+  font-size: 18px;
+  color: #888;
+  margin: -20px 0 28px;
+  font-style: italic;
+}
+
+.pronun-mic-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0 30px;
+  position: relative;
+}
+
+.pronun-mic-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.pronun-mic-btn:hover:not(.disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 22px rgba(79, 70, 229, 0.45);
+}
+
+.pronun-mic-btn.recording {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.45);
+  animation: micPulse 1.5s ease infinite;
+}
+
+.pronun-mic-btn.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pronun-mic-icon {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.pronun-mic-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pronun-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid rgba(239, 68, 68, 0.4);
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+@keyframes micPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes pulseRing {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+
+.pronun-error {
+  color: #ef4444;
+  text-align: center;
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.pronun-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+.pronun-score-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 32px;
+  border-radius: 16px;
+  min-width: 140px;
+}
+
+.pronun-score-badge.score-excellent {
+  background: linear-gradient(135deg, #059669, #34d399);
+  color: white;
+}
+
+.pronun-score-badge.score-good {
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: white;
+}
+
+.pronun-score-badge.score-poor {
+  background: linear-gradient(135deg, #dc2626, #f87171);
+  color: white;
+}
+
+.pronun-pct {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.pronun-score-text {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.pronun-transcript {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pronun-transcript-label {
+  font-size: 13px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.pronun-transcript-text {
+  font-size: 20px;
+  color: #3c3c3c;
+  font-style: italic;
+}
+
+.pronun-tryagain {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+}
+
+.pronun-skip-btn {
+  background: #e5e7eb;
+  color: #555;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pronun-skip-btn:hover {
+  background: #d1d5db;
+}
+
+.pronun-unsupported {
+  text-align: center;
+  color: #888;
+  margin-top: 20px;
+}
+
+.pronun-unsupported p {
+  margin: 6px 0;
+}
+
 .matching-label {
   font-size: 13px;
   font-weight: 700;
