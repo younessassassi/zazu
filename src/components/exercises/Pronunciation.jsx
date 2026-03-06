@@ -44,6 +44,8 @@ const THRESHOLD = 0.6;
 export default function Pronunciation({ exercise, onAnswer, answered }) {
   const [recording, setRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
+  const [interimTranscript, setInterimTranscript] = useState('');
+  const [status, setStatus] = useState('idle');
   const [score, setScore] = useState(null);
   const [error, setError] = useState(null);
   const [attempts, setAttempts] = useState(0);
@@ -55,38 +57,58 @@ export default function Pronunciation({ exercise, onAnswer, answered }) {
     if (!supported || answered) return;
     setError(null);
     setTranscript('');
+    setInterimTranscript('');
     setScore(null);
+    setStatus('listening');
 
     const recognition = new SpeechRecognition();
     recognition.lang = 'fr-FR';
-    recognition.interimResults = false;
+    recognition.interimResults = true;
     recognition.maxAlternatives = 3;
     recognitionRef.current = recognition;
 
     recognition.onresult = (event) => {
-      // Check all alternatives for best match
-      let bestScore = 0;
-      let bestTranscript = '';
-      for (let i = 0; i < event.results[0].length; i++) {
-        const t = event.results[0][i].transcript;
-        const s = similarity(t, exercise.text);
-        if (s > bestScore) {
-          bestScore = s;
-          bestTranscript = t;
+      // Collect interim results for live display
+      let interim = '';
+      let finalResult = null;
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          finalResult = event.results[i];
+        } else {
+          interim += event.results[i][0].transcript;
         }
       }
-      setTranscript(bestTranscript);
-      setScore(bestScore);
-      setAttempts((a) => a + 1);
-      setRecording(false);
+      setInterimTranscript(interim);
 
-      if (bestScore >= THRESHOLD) {
-        onAnswer(true);
+      if (finalResult) {
+        setStatus('analyzing');
+        // Check all alternatives for best match
+        let bestScore = 0;
+        let bestTranscript = '';
+        for (let i = 0; i < finalResult.length; i++) {
+          const t = finalResult[i].transcript;
+          const s = similarity(t, exercise.text);
+          if (s > bestScore) {
+            bestScore = s;
+            bestTranscript = t;
+          }
+        }
+        setTranscript(bestTranscript);
+        setInterimTranscript('');
+        setScore(bestScore);
+        setAttempts((a) => a + 1);
+        setRecording(false);
+        setStatus(bestScore >= THRESHOLD ? 'passed' : 'failed');
+
+        if (bestScore >= THRESHOLD) {
+          onAnswer(true);
+        }
       }
     };
 
     recognition.onerror = (event) => {
       setRecording(false);
+      setStatus('idle');
       if (event.error === 'no-speech') {
         setError("No speech detected. Tap the microphone and try again.");
       } else if (event.error === 'not-allowed') {
@@ -98,6 +120,7 @@ export default function Pronunciation({ exercise, onAnswer, answered }) {
 
     recognition.onend = () => {
       setRecording(false);
+      setInterimTranscript('');
     };
 
     setRecording(true);
@@ -109,11 +132,22 @@ export default function Pronunciation({ exercise, onAnswer, answered }) {
       recognitionRef.current.stop();
     }
     setRecording(false);
+    setInterimTranscript('');
   }, []);
 
   const handleSkip = () => {
     if (!answered) {
       onAnswer(false);
+    }
+  };
+
+  const getStatusMessage = () => {
+    switch (status) {
+      case 'listening': return '🎧 Listening — speak now...';
+      case 'analyzing': return '🔍 Analyzing your pronunciation...';
+      case 'passed': return '🎉 Great pronunciation!';
+      case 'failed': return '🔄 Not quite right — try again or listen to the correct pronunciation';
+      default: return '🎤 Tap the microphone and say the phrase above';
     }
   };
 
@@ -166,11 +200,22 @@ export default function Pronunciation({ exercise, onAnswer, answered }) {
         >
           <span className="pronun-mic-icon">{recording ? '⏹️' : '🎤'}</span>
           <span className="pronun-mic-label">
-            {recording ? 'Listening...' : answered ? 'Done' : 'Tap to speak'}
+            {recording ? 'Tap to stop' : answered ? 'Done' : 'Tap to speak'}
           </span>
         </button>
         {recording && <div className="pronun-pulse" />}
       </div>
+
+      {/* Status message */}
+      <p className={`pronun-status pronun-status-${status}`}>{getStatusMessage()}</p>
+
+      {/* Live transcript while speaking */}
+      {recording && interimTranscript && (
+        <div className="pronun-live">
+          <span className="pronun-live-label">Hearing:</span>
+          <span className="pronun-live-text">"{interimTranscript}"</span>
+        </div>
+      )}
 
       {/* Error message */}
       {error && <p className="pronun-error">{error}</p>}
@@ -188,13 +233,8 @@ export default function Pronunciation({ exercise, onAnswer, answered }) {
           </div>
           {score < THRESHOLD && (
             <p className="pronun-tryagain">
-              Listen again and try to match the pronunciation. ({attempts}/3 attempts)
+              Listen again and try to match the pronunciation. (Attempt {attempts})
             </p>
-          )}
-          {score < THRESHOLD && attempts >= 3 && (
-            <button className="pronun-skip-btn" onClick={handleSkip}>
-              Skip this exercise
-            </button>
           )}
         </div>
       )}
@@ -211,6 +251,13 @@ export default function Pronunciation({ exercise, onAnswer, answered }) {
             <span className="pronun-transcript-text">"{transcript}"</span>
           </div>
         </div>
+      )}
+
+      {/* Skip button — always available */}
+      {!answered && (
+        <button className="pronun-skip-btn" onClick={handleSkip}>
+          Skip this exercise
+        </button>
       )}
     </div>
   );

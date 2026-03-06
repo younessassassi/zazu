@@ -602,6 +602,45 @@
   background: #d1d5db;
 }
 
+.pronun-status {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 16px;
+  min-height: 22px;
+  transition: color 0.2s;
+}
+
+.pronun-status-idle { color: #888; }
+.pronun-status-listening { color: #4f46e5; }
+.pronun-status-analyzing { color: #d97706; }
+.pronun-status-passed { color: #059669; }
+.pronun-status-failed { color: #dc2626; }
+
+.pronun-live {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.pronun-live-label {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.pronun-live-text {
+  font-size: 22px;
+  color: #4f46e5;
+  font-style: italic;
+  font-weight: 600;
+}
+
 .pronun-unsupported {
   text-align: center;
   color: #888;
