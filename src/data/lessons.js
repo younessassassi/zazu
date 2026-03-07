@@ -75,6 +75,21 @@ const lessons = [
         english: 'Good evening',
       },
       {
+        type: 'pronunciation',
+        text: 'Bonjour',
+        english: 'Hello',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Au revoir',
+        english: 'Goodbye',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Comment allez-vous',
+        english: 'How are you',
+      },
+      {
         type: 'dialogue',
         picture: '👫🏙️',
         lines: [
@@ -174,6 +189,21 @@ const lessons = [
         english: 'Please',
       },
       {
+        type: 'pronunciation',
+        text: 'Merci beaucoup',
+        english: 'Thank you very much',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Excusez-moi',
+        english: 'Excuse me',
+      },
+      {
+        type: 'pronunciation',
+        text: 'De rien',
+        english: "You're welcome",
+      },
+      {
         type: 'dialogue',
         picture: '🏪🛒',
         lines: [
@@ -271,6 +301,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Je m\'appelle',
         english: 'My name is',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Enchanté',
+        english: 'Nice to meet you',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Comment vous appelez-vous',
+        english: 'What is your name',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je suis français',
+        english: 'I am French',
       },
       {
         type: 'dialogue',
@@ -377,6 +422,21 @@ const lessons = [
         english: 'My mother and my father',
       },
       {
+        type: 'pronunciation',
+        text: 'Mon frère',
+        english: 'My brother',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Voici ma famille',
+        english: 'Here is my family',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Ma sœur est gentille',
+        english: 'My sister is kind',
+      },
+      {
         type: 'dialogue',
         picture: '👨‍👩‍👧‍👦🏠',
         lines: [
@@ -477,6 +537,16 @@ const lessons = [
         type: 'pronunciation',
         text: 'Elle est très belle',
         english: 'She is very beautiful',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Il est grand et jeune',
+        english: 'He is tall and young',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Ils sont gentils',
+        english: 'They are kind',
       },
       {
         type: 'dialogue',
@@ -584,6 +654,21 @@ const lessons = [
         english: 'I am hungry',
       },
       {
+        type: 'pronunciation',
+        text: 'Du pain et du fromage',
+        english: 'Bread and cheese',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je voudrais une pomme',
+        english: 'I would like an apple',
+      },
+      {
+        type: 'pronunciation',
+        text: "C'est délicieux",
+        english: 'It is delicious',
+      },
+      {
         type: 'dialogue',
         picture: '🧑‍🍳🍽️',
         lines: [
@@ -683,6 +768,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Je voudrais un café',
         english: 'I would like a coffee',
+      },
+      {
+        type: 'pronunciation',
+        text: "J'ai soif",
+        english: 'I am thirsty',
+      },
+      {
+        type: 'pronunciation',
+        text: "Un verre d'eau",
+        english: 'A glass of water',
+      },
+      {
+        type: 'pronunciation',
+        text: "Qu'est-ce que vous voulez boire",
+        english: 'What would you like to drink',
       },
       {
         type: 'dialogue',
@@ -787,6 +887,21 @@ const lessons = [
         english: 'Where is the train station',
       },
       {
+        type: 'pronunciation',
+        text: 'Allez tout droit',
+        english: 'Go straight ahead',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Tournez à gauche',
+        english: 'Turn left',
+      },
+      {
+        type: 'pronunciation',
+        text: "Je cherche l'hôtel",
+        english: 'I am looking for the hotel',
+      },
+      {
         type: 'dialogue',
         picture: '🗺️🧳',
         lines: [
@@ -884,6 +999,21 @@ const lessons = [
         type: 'pronunciation',
         text: "L'addition, s'il vous plaît",
         english: 'The bill, please',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Une table pour deux',
+        english: 'A table for two',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Bon appétit',
+        english: 'Enjoy your meal',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Le menu, s\'il vous plaît',
+        english: 'The menu, please',
       },
       {
         type: 'dialogue',
@@ -991,6 +1121,16 @@ const lessons = [
         english: 'It\'s fifteen euros',
       },
       {
+        type: 'pronunciation',
+        text: 'C\'est combien',
+        english: 'How much is it',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Dix euros',
+        english: 'Ten euros',
+      },
+      {
         type: 'dialogue',
         picture: '🛍️💰',
         lines: [
@@ -1091,6 +1231,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Aujourd\'hui c\'est mercredi',
         english: 'Today is Wednesday',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Quelle heure est-il',
+        english: 'What time is it',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Il est midi',
+        english: 'It is noon',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Lundi, mardi, mercredi',
+        english: 'Monday, Tuesday, Wednesday',
       },
       {
         type: 'dialogue',
@@ -1197,6 +1352,21 @@ const lessons = [
         english: 'I eat and I drink',
       },
       {
+        type: 'pronunciation',
+        text: 'Je parle français',
+        english: 'I speak French',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Nous allons au travail',
+        english: 'We go to work',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Tu aimes le chocolat',
+        english: 'You like chocolate',
+      },
+      {
         type: 'dialogue',
         picture: '🏃‍♂️🌅',
         lines: [
@@ -1295,6 +1465,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Je suis étudiant',
         english: 'I am a student',
+      },
+      {
+        type: 'pronunciation',
+        text: "J'ai un livre",
+        english: 'I have a book',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Nous sommes français',
+        english: 'We are French',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Ils ont faim',
+        english: 'They are hungry',
       },
       {
         type: 'dialogue',
@@ -1401,6 +1586,21 @@ const lessons = [
         english: 'The sky is blue',
       },
       {
+        type: 'pronunciation',
+        text: 'La robe est rouge',
+        english: 'The dress is red',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Les feuilles sont vertes',
+        english: 'The leaves are green',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Le soleil est jaune',
+        english: 'The sun is yellow',
+      },
+      {
         type: 'dialogue',
         picture: '🎨👗',
         lines: [
@@ -1491,6 +1691,21 @@ const lessons = [
         english: 'How much does it cost',
       },
       {
+        type: 'pronunciation',
+        text: 'Je cherche une robe',
+        english: 'I am looking for a dress',
+      },
+      {
+        type: 'pronunciation',
+        text: "C'est en solde",
+        english: "It's on sale",
+      },
+      {
+        type: 'pronunciation',
+        text: 'Quelle taille',
+        english: 'What size',
+      },
+      {
         type: 'dialogue',
         picture: '🛍️👗',
         lines: [
@@ -1578,6 +1793,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Je voudrais payer par carte',
         english: 'I would like to pay by card',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Voici votre reçu',
+        english: 'Here is your receipt',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Ça fait trente-cinq euros',
+        english: 'That will be thirty-five euros',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Bonne journée',
+        english: 'Have a good day',
       },
       {
         type: 'dialogue',
@@ -1671,6 +1901,21 @@ const lessons = [
         english: 'I have a headache',
       },
       {
+        type: 'pronunciation',
+        text: 'Ouvrez la bouche',
+        english: 'Open your mouth',
+      },
+      {
+        type: 'pronunciation',
+        text: "J'ai mal au ventre",
+        english: 'I have a stomachache',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Depuis hier matin',
+        english: 'Since yesterday morning',
+      },
+      {
         type: 'dialogue',
         picture: '🏥👨‍⚕️',
         lines: [
@@ -1758,6 +2003,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Je suis malade',
         english: 'I am sick',
+      },
+      {
+        type: 'pronunciation',
+        text: "J'ai un rhume",
+        english: 'I have a cold',
+      },
+      {
+        type: 'pronunciation',
+        text: "J'ai mal à la gorge",
+        english: 'I have a sore throat',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Prenez ce médicament',
+        english: 'Take this medicine',
       },
       {
         type: 'dialogue',
@@ -1852,6 +2112,21 @@ const lessons = [
         english: 'I live in an apartment',
       },
       {
+        type: 'pronunciation',
+        text: 'Voici la cuisine',
+        english: 'Here is the kitchen',
+      },
+      {
+        type: 'pronunciation',
+        text: 'La chambre est grande',
+        english: 'The bedroom is big',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Bienvenue chez moi',
+        english: 'Welcome to my home',
+      },
+      {
         type: 'dialogue',
         picture: '🏠🛋️',
         lines: [
@@ -1938,6 +2213,21 @@ const lessons = [
         type: 'pronunciation',
         text: 'Je me réveille à sept heures',
         english: 'I wake up at seven o\'clock',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je prends une douche',
+        english: 'I take a shower',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je me couche tard',
+        english: 'I go to bed late',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Je prends le petit-déjeuner',
+        english: 'I have breakfast',
       },
       {
         type: 'dialogue',
@@ -2031,6 +2321,21 @@ const lessons = [
         english: "What's the weather like today",
       },
       {
+        type: 'pronunciation',
+        text: 'Il pleut',
+        english: 'It is raining',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Il fait beau',
+        english: 'The weather is nice',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Le soleil brille',
+        english: 'The sun is shining',
+      },
+      {
         type: 'dialogue',
         picture: '🌧️☀️',
         lines: [
@@ -2119,6 +2424,21 @@ const lessons = [
         english: 'In summer, it is hot',
       },
       {
+        type: 'pronunciation',
+        text: "J'aime l'automne",
+        english: 'I like autumn',
+      },
+      {
+        type: 'pronunciation',
+        text: 'En hiver il fait froid',
+        english: 'In winter it is cold',
+      },
+      {
+        type: 'pronunciation',
+        text: 'Le printemps est beau',
+        english: 'Spring is beautiful',
+      },
+      {
         type: 'dialogue',
         picture: '🌸🍂',
         lines: [
@@ -2187,6 +2507,16 @@ const lessons = [
         english: 'Nice to meet you, I am American',
       },
       {
+        type: 'pronunciation',
+        text: "Ravi de vous connaître",
+        english: 'Pleased to meet you',
+      },
+      {
+        type: 'pronunciation',
+        text: "Qu'est-ce que vous faites dans la vie",
+        english: 'What do you do for a living',
+      },
+      {
         type: 'multipleChoice',
         question: 'How would you ask "What do you do for work?" in French?',
         options: ['Qu\'est-ce que vous faites?', 'Où travaillez-vous?', 'Vous aimez votre travail?', 'Quel est votre métier?'],
@@ -2229,6 +2559,11 @@ const lessons = [
         type: 'pronunciation',
         text: "Avec plaisir",
         english: 'With pleasure',
+      },
+      {
+        type: 'pronunciation',
+        text: "On prend un café ensemble",
+        english: 'Shall we have coffee together',
       },
     ],
   },
@@ -2295,6 +2630,16 @@ const lessons = [
         type: 'pronunciation',
         text: "Je ne me sens pas bien",
         english: 'I don\'t feel well',
+      },
+      {
+        type: 'pronunciation',
+        text: "J'ai besoin d'un rendez-vous",
+        english: 'I need an appointment',
+      },
+      {
+        type: 'pronunciation',
+        text: "C'est grave",
+        english: 'Is it serious',
       },
       {
         type: 'matching',
@@ -2374,6 +2719,16 @@ const lessons = [
         english: 'Are you free Saturday evening',
       },
       {
+        type: 'pronunciation',
+        text: "Bonne idée",
+        english: 'Good idea',
+      },
+      {
+        type: 'pronunciation',
+        text: "À quelle heure",
+        english: 'What time',
+      },
+      {
         type: 'matching',
         pairs: [
           { french: 'Tu es libre?', english: 'Are you free?' },
@@ -2416,6 +2771,16 @@ const lessons = [
         type: 'pronunciation',
         text: "On se retrouve devant le restaurant",
         english: "Let's meet in front of the restaurant",
+      },
+      {
+        type: 'pronunciation',
+        text: "À ce soir",
+        english: 'See you tonight',
+      },
+      {
+        type: 'pronunciation',
+        text: "Je réserve une table",
+        english: "I'll book a table",
       },
     ],
   },
