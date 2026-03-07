@@ -7,7 +7,7 @@ import './Navbar.css';
 
 export default function Navbar() {
   const location = useLocation();
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, isPremium } = useAuth();
   const [progress, setProgress] = useState(getUserProgress());
 
   useEffect(() => {
@@ -47,6 +47,15 @@ export default function Navbar() {
             <span className="nav-icon">🏠</span>
             <span className="nav-label">Learn</span>
           </Link>
+          {!isPremium && !isAdmin && (
+            <Link
+              to="/pricing"
+              className={`nav-link nav-upgrade ${location.pathname === '/pricing' ? 'active' : ''}`}
+            >
+              <span className="nav-icon">👑</span>
+              <span className="nav-label">Upgrade</span>
+            </Link>
+          )}
           {isAdmin && (
             <Link
               to="/admin"

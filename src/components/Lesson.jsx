@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getLessonById } from '../data/lessons';
 import { completeLesson } from '../data/progress';
 import { stopSpeech } from '../utils/speech';
+import { useAuth } from '../contexts/AuthContext';
 import MultipleChoice from './exercises/MultipleChoice';
 import Translate from './exercises/Translate';
 import FillBlank from './exercises/FillBlank';
@@ -12,9 +13,12 @@ import Pronunciation from './exercises/Pronunciation';
 import LessonComplete from './LessonComplete';
 import './Lesson.css';
 
+const FREE_UNITS = 3;
+
 export default function Lesson() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { isPremium, isAdmin } = useAuth();
   const lesson = getLessonById(id);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,6 +35,17 @@ export default function Lesson() {
       <div className="lesson-not-found">
         <h2>Lesson not found</h2>
         <button onClick={() => navigate('/')}>Go Home</button>
+      </div>
+    );
+  }
+
+  // Block non-premium users from premium lessons
+  if (lesson.unit > FREE_UNITS && !isPremium && !isAdmin) {
+    return (
+      <div className="lesson-not-found">
+        <h2>👑 Premium Lesson</h2>
+        <p>Upgrade to Premium to access this lesson.</p>
+        <button onClick={() => navigate('/pricing')}>See Plans</button>
       </div>
     );
   }

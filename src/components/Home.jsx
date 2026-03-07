@@ -33,11 +33,13 @@ function ProgressRing({ percentage, size = 48, stroke = 4 }) {
 
 export default function Home() {
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isPremium } = useAuth();
   const units = getUnits();
   const progress = getUserProgress();
   const completedCount = Object.keys(progress.completedLessons).length;
   const overallPercent = Math.round((completedCount / lessons.length) * 100);
+  const FREE_UNITS = 3;
+  const hasFullAccess = isPremium || isAdmin;
 
   return (
     <div className="home">
@@ -67,17 +69,29 @@ export default function Home() {
           const completedInUnit = unitLessons.filter(
             (l) => !!getLessonProgress(l.id)
           ).length;
+          const unitLocked = !hasFullAccess && unit.id > FREE_UNITS;
 
           return (
-            <div key={unit.id} className="chapter-section">
+            <div key={unit.id} className={`chapter-section ${unitLocked ? 'chapter-premium-locked' : ''}`}>
               <div className="chapter-banner">
                 <span className="chapter-number">Chapter {unit.id}</span>
                 <span className="chapter-name">{unit.name}</span>
-                <span className="chapter-progress-tag">
-                  {completedInUnit}/{unitLessons.length}
-                </span>
+                {unitLocked ? (
+                  <span className="chapter-premium-tag" onClick={() => navigate('/pricing')}>👑 Premium</span>
+                ) : (
+                  <span className="chapter-progress-tag">
+                    {completedInUnit}/{unitLessons.length}
+                  </span>
+                )}
               </div>
 
+              {unitLocked ? (
+                <div className="premium-gate" onClick={() => navigate('/pricing')}>
+                  <span className="premium-gate-icon">🔒</span>
+                  <p className="premium-gate-text">Unlock this chapter with Premium</p>
+                  <button className="premium-gate-btn">See Plans</button>
+                </div>
+              ) : (
               <div className="lesson-grid">
                 {unitLessons.map((lesson) => {
                   const unlocked = isLessonUnlocked(lesson.id, lessons, isAdmin);
@@ -122,6 +136,7 @@ export default function Home() {
                   );
                 })}
               </div>
+              )}
             </div>
           );
         })}

@@ -8,6 +8,8 @@ import Lesson from './components/Lesson';
 import Profile from './components/Profile';
 import Login from './components/Login';
 import AdminPanel from './components/AdminPanel';
+import Pricing from './components/Pricing';
+import Landing from './components/Landing';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -22,6 +24,8 @@ function AppLayout() {
   const [syncing, setSyncing] = useState(false);
   const isInLesson = location.pathname.startsWith('/lesson/');
   const isLogin = location.pathname === '/login';
+  const isLanding = location.pathname === '/welcome';
+  const isPricingPage = location.pathname === '/pricing';
 
   useEffect(() => {
     if (user) {
@@ -42,10 +46,12 @@ function AppLayout() {
 
   return (
     <>
-      {!isInLesson && !isLogin && <Navbar />}
+      {!isInLesson && !isLogin && !isLanding && !isPricingPage && user && <Navbar />}
       <Routes>
+        <Route path="/welcome" element={user ? <Navigate to="/" replace /> : <Landing />} />
         <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/pricing" element={user ? <ProtectedRoute><Pricing /></ProtectedRoute> : <Landing />} />
+        <Route path="/" element={user ? <ProtectedRoute><Home /></ProtectedRoute> : <Navigate to="/welcome" replace />} />
         <Route path="/lesson/:id" element={<ProtectedRoute><Lesson /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />

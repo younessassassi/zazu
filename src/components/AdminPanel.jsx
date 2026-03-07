@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { searchUsersByEmail, setUserAdminStatus } from '../data/progress';
+import { searchUsersByEmail, setUserAdminStatus, setUserPremiumStatus } from '../data/progress';
 import './AdminPanel.css';
 
 export default function AdminPanel() {
@@ -62,6 +62,22 @@ export default function AdminPanel() {
     }
   };
 
+  const handleTogglePremium = async (targetUid, currentStatus) => {
+    setError('');
+    setSuccess('');
+    try {
+      await setUserPremiumStatus(targetUid, !currentStatus);
+      setResults((prev) =>
+        prev.map((u) =>
+          u.uid === targetUid ? { ...u, isPremium: !currentStatus } : u
+        )
+      );
+      setSuccess(`Premium ${!currentStatus ? 'granted' : 'revoked'} successfully.`);
+    } catch {
+      setError('Failed to update premium status.');
+    }
+  };
+
   return (
     <div className="admin-panel">
       <div className="admin-header">
@@ -100,9 +116,18 @@ export default function AdminPanel() {
                 </span>
               </div>
               <div className="admin-user-actions">
+                <span className={`admin-badge ${u.isPremium ? 'premium' : 'free'}`}>
+                  {u.isPremium ? '👑 Premium' : 'Free'}
+                </span>
                 <span className={`admin-badge ${u.isAdmin ? 'admin' : 'user'}`}>
                   {u.isAdmin ? 'Admin' : 'User'}
                 </span>
+                <button
+                  className={`admin-toggle-btn ${u.isPremium ? 'revoke' : 'grant'}`}
+                  onClick={() => handleTogglePremium(u.uid, u.isPremium)}
+                >
+                  {u.isPremium ? 'Revoke Premium' : 'Grant Premium'}
+                </button>
                 <button
                   className={`admin-toggle-btn ${u.isAdmin ? 'revoke' : 'grant'}`}
                   onClick={() => handleToggleAdmin(u.uid, u.isAdmin)}

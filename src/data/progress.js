@@ -43,6 +43,7 @@ export async function initProgressForUser(uid, userInfo = {}) {
     email: userInfo.email || cloud?.email || null,
     displayName: userInfo.displayName || cloud?.displayName || null,
     isAdmin: cloud?.isAdmin || false,
+    isPremium: cloud?.isPremium || false,
   };
 
   if (cloud) {
@@ -171,6 +172,15 @@ export async function getIsAdmin(uid) {
   }
 }
 
+export async function getIsPremium(uid) {
+  try {
+    const snap = await getDoc(doc(db, 'users', uid));
+    return snap.exists() ? !!snap.data().isPremium : false;
+  } catch {
+    return false;
+  }
+}
+
 export async function searchUsersByEmail(email) {
   const q = query(collection(db, 'users'), where('email', '==', email));
   const snap = await getDocs(q);
@@ -182,4 +192,11 @@ export async function setUserAdminStatus(uid, isAdmin) {
   const snap = await getDoc(ref);
   if (!snap.exists()) throw new Error('User not found');
   await setDoc(ref, { ...snap.data(), isAdmin }, { merge: true });
+}
+
+export async function setUserPremiumStatus(uid, isPremium) {
+  const ref = doc(db, 'users', uid);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('User not found');
+  await setDoc(ref, { ...snap.data(), isPremium }, { merge: true });
 }

@@ -145,8 +145,10 @@
 .admin-user-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .admin-badge {
@@ -166,6 +168,16 @@
 .admin-badge.user {
   background: #f1f5f9;
   color: #64748b;
+}
+
+.admin-badge.premium {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.admin-badge.free {
+  background: #f1f5f9;
+  color: #94a3b8;
 }
 
 .admin-toggle-btn {

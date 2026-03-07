@@ -9,7 +9,7 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { auth } from '../firebase';
-import { getIsAdmin } from '../data/progress';
+import { getIsAdmin, getIsPremium } from '../data/progress';
 
 const AuthContext = createContext(null);
 
@@ -20,16 +20,22 @@ export function useAuth() {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
-        const adminStatus = await getIsAdmin(u.uid);
+        const [adminStatus, premiumStatus] = await Promise.all([
+          getIsAdmin(u.uid),
+          getIsPremium(u.uid),
+        ]);
         setIsAdmin(adminStatus);
+        setIsPremium(premiumStatus);
       } else {
         setIsAdmin(false);
+        setIsPremium(false);
       }
       setLoading(false);
     });
@@ -58,7 +64,7 @@ export default function AuthProvider({ children }) {
     await signOut(auth);
   }
 
-  const value = { user, isAdmin, setIsAdmin, loading, signup, login, loginWithGoogle, logout };
+  const value = { user, isAdmin, setIsAdmin, isPremium, setIsPremium, loading, signup, login, loginWithGoogle, logout };
 
   return (
     <AuthContext.Provider value={value}>
