@@ -150,6 +150,30 @@ export function getLessonProgress(lessonId) {
   return progress.completedLessons[lessonId] || null;
 }
 
+// --- In-progress lesson position tracking ---
+
+export function saveLessonPosition(lessonId, position) {
+  const progress = getLocalProgress();
+  if (!progress.inProgressLessons) progress.inProgressLessons = {};
+  progress.inProgressLessons[lessonId] = { ...position, savedAt: new Date().toISOString() };
+  saveLocal(progress);
+  syncToCloud(progress);
+}
+
+export function getLessonPosition(lessonId) {
+  const progress = getLocalProgress();
+  return progress.inProgressLessons?.[lessonId] || null;
+}
+
+export function clearLessonPosition(lessonId) {
+  const progress = getLocalProgress();
+  if (progress.inProgressLessons) {
+    delete progress.inProgressLessons[lessonId];
+    saveLocal(progress);
+    syncToCloud(progress);
+  }
+}
+
 export async function resetProgress() {
   localStorage.removeItem(STORAGE_KEY);
   if (_currentUid) {

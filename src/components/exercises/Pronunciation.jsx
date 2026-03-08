@@ -43,25 +43,30 @@ function numberToFrench(n) {
  */
 function normalize(text) {
   let t = text.toLowerCase();
-  t = t.replace(/€/g, ' euros').replace(/\$/g, ' dollars').replace(/£/g, ' livres');
-  t = t.replace(/-/g, ' ');
+  // Currency symbols → words
+  t = t.replace(/€/g, ' euros ').replace(/\$/g, ' dollars ').replace(/£/g, ' livres ');
+  // Hyphens and common punctuation → spaces
+  t = t.replace(/[-'']/g, ' ');
+  // Remove commas between digits (e.g. 1,000)
+  t = t.replace(/(\d),(\d)/g, '$1$2');
+  // Strip accents
   t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // Convert digit sequences to French words
   t = t.replace(/\d+/g, (m) => numberToFrench(Number(m)));
+  // Normalize euro/euros
+  t = t.replace(/\beuro\b/g, 'euros');
+  // Strip remaining non-alpha
   t = t.replace(/[^a-z\s]/g, '');
   return t.replace(/\s+/g, ' ').trim();
 }
 
 /**
- * Compute similarity between two strings (0-1) using longest common subsequence.
+ * Character-level LCS similarity (0-1).
  */
-function similarity(a, b) {
-  if (!a || !b) return 0;
-  const na = normalize(a);
-  const nb = normalize(b);
-  if (na === nb) return 1;
-
+function charSimilarity(na, nb) {
   const m = na.length;
   const n = nb.length;
+  if (m === 0 || n === 0) return 0;
   const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
@@ -71,6 +76,38 @@ function similarity(a, b) {
     }
   }
   return dp[m][n] / Math.max(m, n);
+}
+
+/**
+ * Word-level similarity (0-1) — more robust for speech recognition.
+ */
+function wordSimilarity(na, nb) {
+  const wa = na.split(' ');
+  const wb = nb.split(' ');
+  if (wa.length === 0 || wb.length === 0) return 0;
+  // Word-level LCS
+  const m = wa.length;
+  const n = wb.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = wa[i - 1] === wb[j - 1]
+        ? dp[i - 1][j - 1] + 1
+        : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    }
+  }
+  return dp[m][n] / Math.max(m, n);
+}
+
+/**
+ * Compute similarity — takes the best of character-level and word-level.
+ */
+function similarity(a, b) {
+  if (!a || !b) return 0;
+  const na = normalize(a);
+  const nb = normalize(b);
+  if (na === nb) return 1;
+  return Math.max(charSimilarity(na, nb), wordSimilarity(na, nb));
 }
 
 const THRESHOLD = 0.6;

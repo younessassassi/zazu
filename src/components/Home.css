@@ -213,6 +213,10 @@
   letter-spacing: 0.5px;
 }
 
+.card-tag.in-progress {
+  color: #d97706;
+}
+
 @media (max-width: 480px) {
   .lesson-grid {
     grid-template-columns: 1fr;

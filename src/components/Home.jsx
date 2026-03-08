@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { getUnits } from '../data/lessons';
-import { getUserProgress, isLessonUnlocked, getLessonProgress } from '../data/progress';
+import { getUserProgress, isLessonUnlocked, getLessonProgress, getLessonPosition } from '../data/progress';
 import { useAuth } from '../contexts/AuthContext';
 import lessons from '../data/lessons';
 import './Home.css';
@@ -97,6 +97,7 @@ export default function Home() {
                   const unlocked = isLessonUnlocked(lesson.id, lessons, isAdmin);
                   const lessonProg = getLessonProgress(lesson.id);
                   const isCompleted = !!lessonProg;
+                  const inProgress = !isCompleted && !!getLessonPosition(lesson.id);
                   const accuracy = isCompleted
                     ? Math.round((lessonProg.bestScore / lessonProg.maxScore) * 100)
                     : 0;
@@ -129,7 +130,9 @@ export default function Home() {
                           <span className="card-grade">{lessonProg.grade}</span>
                         )}
                         {!isCompleted && unlocked && (
-                          <span className="card-tag">Start</span>
+                          <span className={`card-tag ${inProgress ? 'in-progress' : ''}`}>
+                            {inProgress ? 'Continue' : 'Start'}
+                          </span>
                         )}
                       </div>
                     </div>
