@@ -5,16 +5,50 @@ import SpeakerButton from '../SpeakerButton';
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 /**
- * Normalize text for comparison — lowercase, strip accents/punctuation/extra spaces.
+ * Convert a number (0–999) to French words (no accents/hyphens).
+ */
+const UNITS = ['', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf'];
+const TEENS = ['dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix sept', 'dix huit', 'dix neuf'];
+const TENS = ['', 'dix', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante', 'soixante', 'quatre vingt', 'quatre vingt'];
+
+function numberToFrench(n) {
+  if (n === 0) return 'zero';
+  if (n < 0 || n > 999) return String(n);
+  let result = '';
+  if (n >= 100) {
+    const h = Math.floor(n / 100);
+    result += (h > 1 ? UNITS[h] + ' ' : '') + 'cent';
+    n %= 100;
+    if (n > 0) result += ' ';
+  }
+  if (n >= 90) return result + 'quatre vingt ' + TEENS[n - 90];
+  if (n >= 80) return result + 'quatre vingt' + (n > 80 ? ' ' + UNITS[n - 80] : '');
+  if (n >= 70) return result + 'soixante' + (n === 71 ? ' et onze' : ' ' + TEENS[n - 70]);
+  if (n >= 20) {
+    const t = Math.floor(n / 10);
+    const u = n % 10;
+    result += TENS[t];
+    if (u === 1 && t <= 6) result += ' et un';
+    else if (u > 0) result += ' ' + UNITS[u];
+    return result;
+  }
+  if (n >= 10) return result + TEENS[n - 10];
+  if (n > 0) result += UNITS[n];
+  return result;
+}
+
+/**
+ * Normalize text for comparison — lowercase, replace hyphens/currency,
+ * strip accents/punctuation, convert digits to French words, collapse spaces.
  */
 function normalize(text) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  let t = text.toLowerCase();
+  t = t.replace(/€/g, ' euros').replace(/\$/g, ' dollars').replace(/£/g, ' livres');
+  t = t.replace(/-/g, ' ');
+  t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  t = t.replace(/\d+/g, (m) => numberToFrench(Number(m)));
+  t = t.replace(/[^a-z\s]/g, '');
+  return t.replace(/\s+/g, ' ').trim();
 }
 
 /**
