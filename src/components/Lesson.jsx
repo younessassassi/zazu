@@ -30,23 +30,26 @@ export default function Lesson() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [finished, setFinished] = useState(false);
   const [result, setResult] = useState(null);
-  const positionRef = useRef({ currentIndex: saved?.currentIndex || 0, score: saved?.score || 0, combo: saved?.combo || 0, bestCombo: saved?.bestCombo || 0 });
+  const positionRef = useRef({ currentIndex: saved?.currentIndex || 0, score: saved?.score || 0, combo: saved?.combo || 0, bestCombo: saved?.bestCombo || 0, started: !!(saved?.currentIndex) });
+
+  const savePosition = useCallback(() => {
+    if (!lesson) return;
+    const p = positionRef.current;
+    if (!p.finished && p.started) {
+      saveLessonPosition(lesson.id, {
+        currentIndex: p.currentIndex,
+        score: p.score,
+        combo: p.combo,
+        bestCombo: p.bestCombo,
+      });
+    }
+  }, [lesson]);
 
   // Save position on unmount (leaving mid-lesson)
   useEffect(() => {
     if (!lesson) return;
-    return () => {
-      const p = positionRef.current;
-      if (!p.finished && p.currentIndex > 0) {
-        saveLessonPosition(lesson.id, {
-          currentIndex: p.currentIndex,
-          score: p.score,
-          combo: p.combo,
-          bestCombo: p.bestCombo,
-        });
-      }
-    };
-  }, [lesson]);
+    return () => savePosition();
+  }, [lesson, savePosition]);
 
   if (!lesson) {
     return (
@@ -76,6 +79,7 @@ export default function Lesson() {
     (correct) => {
       setAnswered(true);
       setIsCorrect(correct);
+      positionRef.current.started = true;
       if (correct) {
         setScore((s) => {
           const v = s + 1;
@@ -193,7 +197,7 @@ export default function Lesson() {
     <div className="lesson-container">
       {/* Header Bar */}
       <div className="lesson-header">
-        <button className="lesson-close" onClick={() => { stopSpeech(); navigate('/'); }}>
+        <button className="lesson-close" onClick={() => { stopSpeech(); savePosition(); navigate('/'); }}>
           ✕
         </button>
         <div className="lesson-progress-bar">
